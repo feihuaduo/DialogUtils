@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffFFFFFF</color>
+	<color name="colorMain">#008cf9</color>
+	<color name="colorDivider">#A9B9C9</color>
+	<color name="colorDialogBackground">#ffffff</color>
+	<color name="activeColorResource">#fffffe</color>
+
+</resources>
