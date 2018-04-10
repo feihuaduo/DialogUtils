@@ -16,7 +16,7 @@
 		android:id="@+id/is_text"
 		android:layout_margin="10dp"/>
 
-	<com.ygo.feihua.view.Point
+	<com.feihua.dialogutils.view.Point
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:layout_width="0dp"
