@@ -15,6 +15,7 @@ import java.util.*;
 
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout.LayoutParams;
+import com.feihua.dialogutils.bean.*;
 /*对话框相关方法
 *
 */
@@ -28,12 +29,7 @@ public class DialogUtils
 	private Context context;
 	private static List<DialogUtils> contexts=new ArrayList<DialogUtils>();
 
-	public void setCanceledOnTouchOutside(boolean cancel){
-		builder.setCanceledOnTouchOutside(cancel);
-		
-		// TODO: Implement this method
-	}
-
+	
 	
 	public Context getContext()
 	{
@@ -135,8 +131,12 @@ public class DialogUtils
 		}
 	}
 	
-	//多选对话框
-	public Select dialogCheckbox(String title,final List<String> data,final List<Integer> position){
+	/*多选对话框
+	*title 标题
+	*data 要选择的数据列表
+	*positions 被选中的数据在列表中的角标
+	*/
+	public Select dialogCheckbox(String title,final List<String> data,final List<Integer> positions){
 
 
 		final Select se=new Select();
@@ -148,10 +148,10 @@ public class DialogUtils
 
 		ds_title.setText(title);
 		
-		final SelectAdapter sa=new SelectAdapter(context,data,position);
+		final SelectAdapter sa=new SelectAdapter(context,data,positions);
 		ds_list.setAdapter(sa);
-		if(position.size()!=0){
-			ds_list.setSelection(position.get(0));
+		if(positions.size()!=0){
+			ds_list.setSelection(positions.get(0));
 		}
 		ds_list.setOnItemClickListener(new OnItemClickListener(){
 
@@ -159,10 +159,11 @@ public class DialogUtils
 				public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
 				{
 				
-						if(conin(position,p3)){
-							removein(position,p3);
+						int position=conin(positions,p3);
+						if(position!=-1){
+							removein(positions,position);
 						}else{
-							position.add(new Integer(p3));
+							positions.add(new Integer(p3));
 						}
 						sa.notifyDataSetChanged();
 					
@@ -185,33 +186,33 @@ public class DialogUtils
 				{
 					
 					if(se.onc!=null){
-						se.onc.OnCheckbox(data,position);
+						se.onc.OnCheckbox(data,positions);
 						dis();
 					}
 					// TODO: Implement this method
 				}
 			});
 
-		    builder.setCanceledOnTouchOutside(true);
+		    setCanceledOnTouchOutside(true);
 		return se;	
 	}
 	
 	private void removein(List<Integer> data,int c){
 		for(int i=0;i<data.size();i++ ){
 			if(data.get(i)==c){
-				data.remove(c);
+				data.remove(i);
 				return;
 			}
 		}
 	}
 	
-	private boolean conin(List<Integer> data,int c){
-		for(int cc:data){
-			if(cc==c){
-				return true;
+	private int conin(List<Integer> data,int c){
+		for(int i=0;i<data.size();i++){
+			if(data.get(i)==c){
+				return i;
 			}
 		}
-		return false;
+		return -1;
 	}
 	
 	//单选对话框
@@ -275,19 +276,19 @@ public class DialogUtils
 				}
 			});
 		
-	   builder.setCanceledOnTouchOutside(true);
+	   setCanceledOnTouchOutside(true);
 		return se;	
 	}
 	
 	//RecyclerView布局提示对话框
-    public View[] dialogRec(boolean b,String title,RecyclerView.Adapter adp,RecyclerView.LayoutManager layout){
+    public View[] dialogRec(String title,RecyclerView.Adapter adp,RecyclerView.LayoutManager layout){
 
         View[] v=new View[2];
         View viewDialog=initDialog(context,R.layout.dialog_rec);
 		TextView dr_title=(TextView) viewDialog.findViewById(R.id.dr_title);
         RecyclerView dr_rec= (RecyclerView) viewDialog.findViewById(R.id.dr_rec);
         Button dr_qd=(Button) viewDialog.findViewById(R.id.dr_qd);
-        if(b){
+        if(title!=null&&title.equals("")){
             dr_title.setText(title);
         }else{
             dr_title.setVisibility(View.GONE);
@@ -299,19 +300,19 @@ public class DialogUtils
 
         v[0]=dr_rec;
 		v[1]=dr_qd;
-        builder.setCanceledOnTouchOutside(true);
+        setCanceledOnTouchOutside(true);
         return v;   
 	}
 	
-//表格布局提示对话框
-    public View[] dialoggrid(boolean b,String title,ListAdapter adp,int numColumns){
+	//表格布局提示对话框
+    public View[] dialoggrid(String title,ListAdapter adp,int numColumns){
 
         View[] v=new View[2];
         View viewDialog=initDialog(context,R.layout.dialog_grid);
 		TextView dt_title=(TextView) viewDialog.findViewById(R.id.dt_title);
         GridView dt_grid= (GridView) viewDialog.findViewById(R.id.dt_grid);
         Button dt_qd=(Button) viewDialog.findViewById(R.id.dt_qd);
-        if(b){
+        if(title!=null&&title.equals("")){
             dt_title.setText(title);
         }else{
             dt_title.setVisibility(View.GONE);
@@ -322,39 +323,36 @@ public class DialogUtils
     
         v[0]=dt_grid;
 		v[1]=dt_qd;
-        builder.setCanceledOnTouchOutside(true);
+        setCanceledOnTouchOutside(true);
         return v;   
 	}
 
-	
-
-
-//listview对话框
-	public ListView dialogl1(boolean bb,String title,final BaseAdapter badp){
+	//listview对话框
+	public ListView dialogl1(String title,final BaseAdapter badp){
 
 		View viewDialog=initDialog(context,R.layout.dialog_list);
 		TextView dl_title=(TextView) viewDialog.findViewById(R.id.dl_title);
 		ListView dl_list=(ListView) viewDialog.findViewById(R.id.dl_list);
-		if(bb){
+		if(title!=null&&title.equals("")){
 			dl_title.setText(title);
 		}else{
 			dl_title.setVisibility(View.GONE);
 		}
 		dl_list.setAdapter(badp);
 
-		builder.setCanceledOnTouchOutside(true);
+		setCanceledOnTouchOutside(true);
 		return dl_list;
 		
 		
     }
 	
 //listview对话框
-	public ListView dialogl(boolean bb,String title,final String[] ss){
+	public ListView dialogl(String title,final String[] ss){
 		
 		View viewDialog=initDialog(context,R.layout.dialog_list);
 		TextView dl_title=(TextView) viewDialog.findViewById(R.id.dl_title);
 		ListView dl_list=(ListView) viewDialog.findViewById(R.id.dl_list);
-		if(bb){
+		if(title!=null&&title.equals("")){
 			dl_title.setText(title);
 		}else{
 			dl_title.setVisibility(View.GONE);
@@ -398,20 +396,20 @@ public class DialogUtils
 		};
 		dl_list.setAdapter(b);
 
-      builder.setCanceledOnTouchOutside(true);
+      setCanceledOnTouchOutside(true);
 		return dl_list;
 
 	}
 
 //EditText对话框
-	public View[] dialoge(boolean bb,String title,String hint){
+	public View[] dialoge(String title,String hint){
 
 		View[] v=new View[2];
 		View viewDialog=initDialog(context,R.layout.dialog_edit);
 		TextView de_title=(TextView) viewDialog.findViewById(R.id.de_title);
 		EditText de_ed=(EditText) viewDialog.findViewById(R.id.de_ed);
 		Button de_qd=(Button) viewDialog.findViewById(R.id.de_qd);
-		if(bb){
+		if(title!=null&&title.equals("")){
 			de_title.setText(title);
 		}else{
 			de_title.setVisibility(View.GONE);
@@ -419,98 +417,90 @@ public class DialogUtils
 		de_ed.setHint(hint);
 		v[0]=de_ed;
 		v[1]=de_qd;
-	   builder.setCanceledOnTouchOutside(true);
+	   setCanceledOnTouchOutside(true);
 		return v;
 
 	}
 
 
 //加载对话框
-	public View[] dialogj(boolean b,String title,final String neirong){
-
-		View[] v=new View[2];
+	public Button dialogj(String title,final String message){
+		
 		View viewDialog=initDialog(context,R.layout.dialog_jiazai);
 		TextView dj_title=(TextView) viewDialog.findViewById(R.id.dj_title);
 		 dj_ts=(TextView) viewDialog.findViewById(R.id.dj_ts);
 		Button dj_qx=(Button) viewDialog.findViewById(R.id.dj_qx);
-		if(b){
+		if(title!=null&&title.equals("")){
 			dj_title.setText(title);
 		}else{
 			dj_title.setVisibility(View.GONE);
 		}
-		dj_ts.setText(neirong);
-		v[0]=dj_qx;
-        v[1]=dj_ts;
-        builder.setCanceledOnTouchOutside(false);
-		return v;
+		dj_ts.setText(message);
+		setCanceledOnTouchOutside(false);
+		return dj_qx;
 
 	}
 
-//无按钮加载对话框
-    public View[] dialogj1(boolean b,String title,final String neirong){
-
-        View[] v=new View[1];
+	//无按钮加载对话框
+    public void dialogj1(String title,final String message){
+		
 		View viewDialog=initDialog(context,R.layout.dialog_jiazai1);
         TextView dj_title=(TextView) viewDialog.findViewById(R.id.dj_title);
         dj_ts=(TextView) viewDialog.findViewById(R.id.dj_ts);
-        if(b){
+        if(title!=null&&title.equals("")){
             dj_title.setText(title);
         }else{
             dj_title.setVisibility(View.GONE);
         }
-        dj_ts.setText(neirong);
-        v[0]=dj_ts;
-        builder.setCanceledOnTouchOutside(false);
-        return v;
-
+        dj_ts.setText(message);
+        setCanceledOnTouchOutside(false);
 	}
 	
 
-//单按钮单图片提示对话框
-    public View[] dialogi(boolean b,String title,final String neirong,int im){
+	//单按钮单图片提示对话框
+    public View[] dialogi(String title,final String message,int drawableId){
 
         View[] v=new View[1];
         View viewDialog=initDialog(context,R.layout.dialog_image);
         TextView di_title=(TextView) viewDialog.findViewById(R.id.di_title);
         dj_ts=(TextView) viewDialog.findViewById(R.id.di_ts);
 		ImageView di_image=(ImageView) viewDialog.findViewById(R.id.di_image);
-		di_image.setImageResource(im);
+		di_image.setImageResource(drawableId);
         Button di_qd=(Button) viewDialog.findViewById(R.id.di_qd);
-        if(b){
+        if(title!=null&&title.equals("")){
             di_title.setText(title);
         }else{
             di_title.setVisibility(View.GONE);
         }
-        dj_ts.setText(neirong);
+        dj_ts.setText(message);
         v[0]=di_qd;
-       builder.setCanceledOnTouchOutside(true);
+       	setCanceledOnTouchOutside(true);
         return v;   
 	}
 	
 	
 	
-//单按钮提示对话框
-    public View[] dialogt1(boolean b,String title,final String neirong){
+	//单按钮提示对话框
+    public Button dialogt1(String title,final String message){
 
-        View[] v=new View[1];
         View viewDialog=initDialog(context,R.layout.dialog_toast1);
         TextView dt_title=(TextView) viewDialog.findViewById(R.id.dt_title);
         dj_ts=(TextView) viewDialog.findViewById(R.id.dt_ts);
         Button dt_qd=(Button) viewDialog.findViewById(R.id.dt_qd);
-        if(b){
+        if(title!=null&&title.equals("")){
             dt_title.setText(title);
         }else{
             dt_title.setVisibility(View.GONE);
         }
-        dj_ts.setText(neirong);
-        v[0]=dt_qd;
-   	   builder.setCanceledOnTouchOutside(true);
-        return v;   
+        dj_ts.setText(message);
+     
+   	   setCanceledOnTouchOutside(true);
+        return dt_qd;   
 	}
 
 
-	//提示对话框
-	public View[] dialogt(boolean b,String title,final String neirong){
+	//双按钮提示对话框
+	public View[] dialogt(String title,final String message){
 
 		View[] v=new View[2];
 		View viewDialog=initDialog(context,R.layout.dialog_toast);
@@ -518,16 +508,116 @@ public class DialogUtils
 		dj_ts=(TextView) viewDialog.findViewById(R.id.dt_ts);
 		Button dt_qd=(Button) viewDialog.findViewById(R.id.dt_qd);
 		Button dt_qx=(Button) viewDialog.findViewById(R.id.dt_qx);
-		if(b){
+		if(title!=null&&title.equals("")){
 			dt_title.setText(title);
 		}else{
 			dt_title.setVisibility(View.GONE);
 		}
-		dj_ts.setText(neirong);
+		dj_ts.setText(message);
 		v[0]=dt_qx;
 		v[1]=dt_qd;
-        builder.setCanceledOnTouchOutside(true);
+        setCanceledOnTouchOutside(true);
 		return v;	
+	}
+	
+	/*更新日志对话框
+	*title 标题
+	*data 更新日志列表
+	*/
+	public View[] dialogUpdateLog(String title,final List<UpdateLog> data){
+
+	    View[] vv=new View[2];
+		View viewDialog=initDialog(context,R.layout.dialog_update_log);
+		TextView du_title=(TextView) viewDialog.findViewById(R.id.duu_title);
+		ListView du_list=(ListView) viewDialog.findViewById(R.id.duu_list);
+		Button du_qd=(Button) viewDialog.findViewById(R.id.duu_qd);
+		if(title!=null&&title.equals("")){
+			du_title.setText(title);
+		}else{
+			du_title.setVisibility(View.GONE);
+		}
+		du_list.setAdapter(new BaseAdapter(){
+
+				Zujian zujian;
+				class Zujian{
+					TextView upda_vosin,upda_message;
+				}
+				@Override
+				public int getCount()
+				{
+					// TODO: Implement this method
+					return data.size();
+				}
+
+				@Override
+				public Object getItem(int p1)
+				{
+					// TODO: Implement this method
+					return data.get(p1);
+				}
+
+				@Override
+				public long getItemId(int p1)
+				{
+					// TODO: Implement this method
+					return p1;
+				}
+
+				@Override
+				public View getView(int p1, View p2, ViewGroup p3)
+				{
+					if(p2==null){
+						zujian=new Zujian();
+						p2=LayoutInflater.from(context).inflate(R.layout.item_update_log,null);
+						zujian.upda_vosin=(TextView) p2.findViewById(R.id.upda_vosin);
+						zujian.upda_message=(TextView) p2.findViewById(R.id.upda_message);
+
+						p2.setTag(zujian);
+
+					}else{
+						zujian=(Zujian) p2.getTag();
+					}
+					zujian.upda_vosin.setText(data.get(p1).getVersion());
+					zujian.upda_message.setText(data.get(p1).getMessage());
+
+					// TODO: Implement this method
+					return p2;
+				}
+			});
+
+		setCanceledOnTouchOutside(true);
+		vv[0]=du_list;
+		vv[1]=du_qd;
+		return vv;
+
+	}
+	
+	//提示更新对话框
+	public View[] dialogAppUpdate(String version,String message){
+
+		View[] v=new View[2];
+		View viewDialog=initDialog(context,R.layout.dialog_app_update);
+		Button du_qd=(Button) viewDialog.findViewById(R.id.du_qd);
+		Button du_qx=(Button) viewDialog.findViewById(R.id.du_qx);
+		TextView du_version=(TextView) viewDialog.findViewById(R.id.du_version_name);
+		TextView du_update_message=(TextView) viewDialog.findViewById(R.id.du_update_message);
+
+		du_version.setText(version);
+		du_update_message.setText(message);
+
+
+		v[0]=du_qx;
+		v[1]=du_qd;
+        setCanceledOnTouchOutside(false);
+		return v;	
+	}
+	
+	
+
+	//设置对话框是否能被返回键或者触控屏幕关闭
+	public void setCanceledOnTouchOutside(boolean cancel){
+		builder.setCanceledOnTouchOutside(cancel);	
+		// TODO: Implement this method
 	}
 	
 	public void setToast(String s){
@@ -535,5 +625,9 @@ public class DialogUtils
 		dj_ts.setText(s);
 		}
 	}
-
+	
+	public TextView getToastTextView(){
+		return dj_ts;
+	}
+	
 }
