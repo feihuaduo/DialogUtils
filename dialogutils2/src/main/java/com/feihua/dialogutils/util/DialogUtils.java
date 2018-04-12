@@ -288,7 +288,7 @@ public class DialogUtils
 		TextView dr_title=(TextView) viewDialog.findViewById(R.id.dr_title);
         RecyclerView dr_rec= (RecyclerView) viewDialog.findViewById(R.id.dr_rec);
         Button dr_qd=(Button) viewDialog.findViewById(R.id.dr_qd);
-        if(title!=null&&title.equals("")){
+        if(title!=null&&!title.equals("")){
             dr_title.setText(title);
         }else{
             dr_title.setVisibility(View.GONE);
@@ -312,7 +312,7 @@ public class DialogUtils
 		TextView dt_title=(TextView) viewDialog.findViewById(R.id.dt_title);
         GridView dt_grid= (GridView) viewDialog.findViewById(R.id.dt_grid);
         Button dt_qd=(Button) viewDialog.findViewById(R.id.dt_qd);
-        if(title!=null&&title.equals("")){
+        if(title!=null&&!title.equals("")){
             dt_title.setText(title);
         }else{
             dt_title.setVisibility(View.GONE);
@@ -333,7 +333,7 @@ public class DialogUtils
 		View viewDialog=initDialog(context,R.layout.dialog_list);
 		TextView dl_title=(TextView) viewDialog.findViewById(R.id.dl_title);
 		ListView dl_list=(ListView) viewDialog.findViewById(R.id.dl_list);
-		if(title!=null&&title.equals("")){
+		if(title!=null&&!title.equals("")){
 			dl_title.setText(title);
 		}else{
 			dl_title.setVisibility(View.GONE);
@@ -352,7 +352,7 @@ public class DialogUtils
 		View viewDialog=initDialog(context,R.layout.dialog_list);
 		TextView dl_title=(TextView) viewDialog.findViewById(R.id.dl_title);
 		ListView dl_list=(ListView) viewDialog.findViewById(R.id.dl_list);
-		if(title!=null&&title.equals("")){
+		if(title!=null&&!title.equals("")){
 			dl_title.setText(title);
 		}else{
 			dl_title.setVisibility(View.GONE);
@@ -409,7 +409,7 @@ public class DialogUtils
 		TextView de_title=(TextView) viewDialog.findViewById(R.id.de_title);
 		EditText de_ed=(EditText) viewDialog.findViewById(R.id.de_ed);
 		Button de_qd=(Button) viewDialog.findViewById(R.id.de_qd);
-		if(title!=null&&title.equals("")){
+		if(title!=null&&!title.equals("")){
 			de_title.setText(title);
 		}else{
 			de_title.setVisibility(View.GONE);
@@ -430,7 +430,7 @@ public class DialogUtils
 		TextView dj_title=(TextView) viewDialog.findViewById(R.id.dj_title);
 		 dj_ts=(TextView) viewDialog.findViewById(R.id.dj_ts);
 		Button dj_qx=(Button) viewDialog.findViewById(R.id.dj_qx);
-		if(title!=null&&title.equals("")){
+		if(title!=null&&!title.equals("")){
 			dj_title.setText(title);
 		}else{
 			dj_title.setVisibility(View.GONE);
@@ -447,7 +447,7 @@ public class DialogUtils
 		View viewDialog=initDialog(context,R.layout.dialog_jiazai1);
         TextView dj_title=(TextView) viewDialog.findViewById(R.id.dj_title);
         dj_ts=(TextView) viewDialog.findViewById(R.id.dj_ts);
-        if(title!=null&&title.equals("")){
+        if(title!=null&&!title.equals("")){
             dj_title.setText(title);
         }else{
             dj_title.setVisibility(View.GONE);
@@ -467,7 +467,7 @@ public class DialogUtils
 		ImageView di_image=(ImageView) viewDialog.findViewById(R.id.di_image);
 		di_image.setImageResource(drawableId);
         Button di_qd=(Button) viewDialog.findViewById(R.id.di_qd);
-        if(title!=null&&title.equals("")){
+        if(title!=null&&!title.equals("")){
             di_title.setText(title);
         }else{
             di_title.setVisibility(View.GONE);
@@ -487,7 +487,7 @@ public class DialogUtils
         TextView dt_title=(TextView) viewDialog.findViewById(R.id.dt_title);
         dj_ts=(TextView) viewDialog.findViewById(R.id.dt_ts);
         Button dt_qd=(Button) viewDialog.findViewById(R.id.dt_qd);
-        if(title!=null&&title.equals("")){
+        if(title!=null&&!title.equals("")){
             dt_title.setText(title);
         }else{
             dt_title.setVisibility(View.GONE);
@@ -508,7 +508,7 @@ public class DialogUtils
 		dj_ts=(TextView) viewDialog.findViewById(R.id.dt_ts);
 		Button dt_qd=(Button) viewDialog.findViewById(R.id.dt_qd);
 		Button dt_qx=(Button) viewDialog.findViewById(R.id.dt_qx);
-		if(title!=null&&title.equals("")){
+		if(title!=null&&!title.equals("")){
 			dt_title.setText(title);
 		}else{
 			dt_title.setVisibility(View.GONE);
@@ -531,7 +531,7 @@ public class DialogUtils
 		TextView du_title=(TextView) viewDialog.findViewById(R.id.duu_title);
 		ListView du_list=(ListView) viewDialog.findViewById(R.id.duu_list);
 		Button du_qd=(Button) viewDialog.findViewById(R.id.duu_qd);
-		if(title!=null&&title.equals("")){
+		if(title!=null&&!title.equals("")){
 			du_title.setText(title);
 		}else{
 			du_title.setVisibility(View.GONE);
