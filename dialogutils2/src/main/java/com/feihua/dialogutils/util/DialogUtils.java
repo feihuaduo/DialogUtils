@@ -94,27 +94,19 @@ public class DialogUtils
 
 		LayoutInflater inflater = LayoutInflater.from(context);
 		View viewDialog = inflater.inflate(layout, null);	
-		int width,height;
+		int width;
 		if(context instanceof Activity){
 			Activity a=(Activity)context;
 			Display display = a.getWindowManager().getDefaultDisplay();
 			width=display.getWidth();
-			height=display.getHeight();
 		}else{
 			DisplayMetrics dm = new DisplayMetrics();
 			Service se=(Service) context;
 			dm = se.getResources().getDisplayMetrics();
 			width = dm.widthPixels;
-			height=dm.heightPixels;
-		}
-		int chang=0;
-		if(width<height){
-			chang=width * 73 / 100;
-		}else{
-			chang=width * 50 / 100;
 		}
 		//设置对话框的宽高
-		LayoutParams layoutParams = new LayoutParams(chang,LayoutParams.WRAP_CONTENT);
+		LayoutParams layoutParams = new LayoutParams(width * 73 / 100,LayoutParams.WRAP_CONTENT);
 		builder.setContentView(viewDialog, layoutParams);
 		return viewDialog;
 		// TODO: Implement this method

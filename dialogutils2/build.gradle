@@ -1,14 +1,13 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.feihuaduo'
+
 android {
-    compileSdkVersion 21
+    compileSdkVersion 26
 
 
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 21
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
