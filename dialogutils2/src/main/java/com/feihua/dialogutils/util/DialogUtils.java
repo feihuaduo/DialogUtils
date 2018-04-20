@@ -417,6 +417,15 @@ public class DialogUtils
 			de_title.setVisibility(View.GONE);
 		}
 		de_ed.setHint(hint);
+		de_qd.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View p1){
+					dis();
+					// TODO: Implement this method
+				}
+			});
+		
 		v[0]=de_ed;
 		v[1]=de_qd;
 	   setCanceledOnTouchOutside(true);
@@ -437,6 +446,15 @@ public class DialogUtils
 		}else{
 			dj_title.setVisibility(View.GONE);
 		}
+		dj_qx.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View p1){
+					dis();
+					// TODO: Implement this method
+				}
+			});
+		
 		dj_ts.setText(message);
 		setCanceledOnTouchOutside(false);
 		return dj_qx;
@@ -475,6 +493,15 @@ public class DialogUtils
             di_title.setVisibility(View.GONE);
         }
         dj_ts.setText(message);
+		di_qd.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View p1){
+					dis();
+					// TODO: Implement this method
+				}
+			});
+		
         v[0]=di_qd;
        	setCanceledOnTouchOutside(true);
         return v;   
@@ -495,7 +522,14 @@ public class DialogUtils
             dt_title.setVisibility(View.GONE);
         }
         dj_ts.setText(message);
-     
+		dt_qd.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View p1){
+					dis();
+					// TODO: Implement this method
+				}
+			});
    	   setCanceledOnTouchOutside(true);
         return dt_qd;   
 	}
