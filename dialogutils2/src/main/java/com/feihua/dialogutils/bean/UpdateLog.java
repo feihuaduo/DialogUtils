@@ -22,4 +22,12 @@ public class UpdateLog
 	public String getVersion(){
 		return version;
 	}
+	
+	public static UpdateLog toUpdateLog(String version,String message){
+		UpdateLog ul=new UpdateLog();
+		ul.setVersion(version);
+		ul.setMessage(message);
+		return ul;
 	}
+	
+}

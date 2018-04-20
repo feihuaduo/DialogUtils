@@ -16,6 +16,8 @@ import java.util.*;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout.LayoutParams;
 import com.feihua.dialogutils.bean.*;
+import android.support.design.widget.BottomSheetDialog;
+import com.feihua.dialogutils.base.OnITItemClickListener;
 /*对话框相关方法
 *
 */
@@ -610,6 +612,58 @@ public class DialogUtils
 		v[1]=du_qd;
         setCanceledOnTouchOutside(false);
 		return v;	
+	}
+	
+	public View dialogBottomSheet(int layoutId){
+		builder = new BottomSheetDialog(context);
+		View view = LayoutInflater.from(context).inflate(layoutId, null);
+		builder.setContentView(view);
+		builder.show();
+		return view;
+	}
+	
+	public class IconTextItem{
+		private OnITItemClickListener onITItemClickListener;
+		
+		public void setOnITItemClickListener(OnITItemClickListener onITItemClickListener){
+			this.onITItemClickListener=onITItemClickListener;
+		}
+	}
+	
+	//底部划出的Dialog列表
+	public IconTextItem dialogBottomSheetListIconText(String title,List<ItemData> data,boolean isShowIcon){
+		
+		final IconTextItem it= new IconTextItem();
+		
+		builder = new BottomSheetDialog(context);
+		View view = LayoutInflater.from(context).inflate(R.layout.icon_text_recycl_item, null);
+		RecyclerView rv_new_file_list=(RecyclerView) view.findViewById(R.id.rv_list);
+		TextView tv_title=(TextView) view.findViewById(R.id.tv_title);
+		
+		if(title!=null||!title.equals("")){
+			tv_title.setText(title);
+		}else{
+			tv_title.setVisibility(View.GONE);
+		}
+		
+		rv_new_file_list.setLayoutManager(new LinearLayoutManager(context));
+		List<ItemData> da=new ArrayList<ItemData>();
+		IconTextRecyclerViewAdapter nFAdp=new IconTextRecyclerViewAdapter(da,isShowIcon);
+		rv_new_file_list.setAdapter(nFAdp);
+		nFAdp.setOnITItemClickListener(new OnITItemClickListener(){
+
+				@Override
+				public void onItemClick(int position){
+					if(it.onITItemClickListener!=null){
+					it.onITItemClickListener.onItemClick(position);
+					}
+					// TODO: Implement this method
+				}
+			});
+		
+		builder.setContentView(view);
+		builder.show();
+		return it; 
 	}
 	
 	
