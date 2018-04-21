@@ -363,10 +363,8 @@ public class DialogUtils
 			@Override
 			public View getView(int p1, View p2, ViewGroup p3)
 			{
-				//返回的view将是对应的item的布局视图,p1为i数组数据对应的下标
-				//注意将ff改成你显示dialog的那个Activity
 				TextView t=new TextView(context);
-				t.setTextColor(Color.parseColor("#008cf9"));
+				t.setTextColor(context.getColor(R.color.colorMain));
 				t.setText(ss[p1]);//p1为对应的数组下标
 				t.setTextSize(20);
 				t.setGravity(Gravity.CENTER);
