@@ -24,15 +24,13 @@ import com.feihua.dialogutils.base.OnITItemClickListener;
 public class DialogUtils
 {
 	//对话框中提示内容
-	private TextView dj_ts;
-	
+	private TextView tv_toast_message;
+	private TextView tv_title;
 	//对话框对象
 	private Dialog builder;
 	private Context context;
 	private static List<DialogUtils> contexts=new ArrayList<DialogUtils>();
 
-	
-	
 	public Context getContext()
 	{
 		return context;
@@ -143,13 +141,11 @@ public class DialogUtils
 
 		final Select se=new Select();
 		View viewDialog=initDialog(context,R.layout.dialog_select);
-		TextView ds_title=(TextView) viewDialog.findViewById(R.id.ds_title);
+		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
 		Button ds_qd=(Button) viewDialog.findViewById(R.id.ds_qd);
 		Button ds_qx=(Button) viewDialog.findViewById(R.id.ds_qx);
 		ListView ds_list=(ListView) viewDialog.findViewById(R.id.ds_list);
-
-		ds_title.setText(title);
-		
+		initTitle(title);	
 		final SelectAdapter sa=new SelectAdapter(context,data,positions);
 		ds_list.setAdapter(sa);
 		if(positions.size()!=0){
@@ -223,12 +219,12 @@ public class DialogUtils
 		
 		final Select se=new Select();
 		View viewDialog=initDialog(context,R.layout.dialog_select);
-		TextView ds_title=(TextView) viewDialog.findViewById(R.id.ds_title);
+		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
 		Button ds_qd=(Button) viewDialog.findViewById(R.id.ds_qd);
 		Button ds_qx=(Button) viewDialog.findViewById(R.id.ds_qx);
 		ListView ds_list=(ListView) viewDialog.findViewById(R.id.ds_list);
 		
-		ds_title.setText(title);
+		initTitle(title);
 		final List<Integer> po=new ArrayList<Integer>();
 		po.add(new Integer(position));
 		final SelectAdapter sa=new SelectAdapter(context,data,po);
@@ -287,15 +283,10 @@ public class DialogUtils
 
         View[] v=new View[2];
         View viewDialog=initDialog(context,R.layout.dialog_rec);
-		TextView dr_title=(TextView) viewDialog.findViewById(R.id.dr_title);
+		tv_title=(TextView) viewDialog.findViewById(R.id.dr_title);
         RecyclerView dr_rec= (RecyclerView) viewDialog.findViewById(R.id.dr_rec);
         Button dr_qd=(Button) viewDialog.findViewById(R.id.dr_qd);
-        if(title!=null&&!title.equals("")){
-            dr_title.setText(title);
-        }else{
-            dr_title.setVisibility(View.GONE);
-        }
-		
+        initTitle(title);
 		dr_rec.setLayoutManager(layout);
 		dr_rec.setAdapter(adp);
 
@@ -311,14 +302,10 @@ public class DialogUtils
 
         View[] v=new View[2];
         View viewDialog=initDialog(context,R.layout.dialog_grid);
-		TextView dt_title=(TextView) viewDialog.findViewById(R.id.dt_title);
+		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
         GridView dt_grid= (GridView) viewDialog.findViewById(R.id.dt_grid);
         Button dt_qd=(Button) viewDialog.findViewById(R.id.dt_qd);
-        if(title!=null&&!title.equals("")){
-            dt_title.setText(title);
-        }else{
-            dt_title.setVisibility(View.GONE);
-        }
+        initTitle(title);
 		dt_grid.setNumColumns(numColumns);
 		dt_grid.setAdapter(adp);
 		
@@ -333,13 +320,9 @@ public class DialogUtils
 	public ListView dialogl1(String title,final BaseAdapter badp){
 
 		View viewDialog=initDialog(context,R.layout.dialog_list);
-		TextView dl_title=(TextView) viewDialog.findViewById(R.id.dl_title);
+		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
 		ListView dl_list=(ListView) viewDialog.findViewById(R.id.dl_list);
-		if(title!=null&&!title.equals("")){
-			dl_title.setText(title);
-		}else{
-			dl_title.setVisibility(View.GONE);
-		}
+		initTitle(title);
 		dl_list.setAdapter(badp);
 
 		setCanceledOnTouchOutside(true);
@@ -352,13 +335,9 @@ public class DialogUtils
 	public ListView dialogl(String title,final String[] ss){
 		
 		View viewDialog=initDialog(context,R.layout.dialog_list);
-		TextView dl_title=(TextView) viewDialog.findViewById(R.id.dl_title);
+		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
 		ListView dl_list=(ListView) viewDialog.findViewById(R.id.dl_list);
-		if(title!=null&&!title.equals("")){
-			dl_title.setText(title);
-		}else{
-			dl_title.setVisibility(View.GONE);
-		}
+		initTitle(title);
 		BaseAdapter b=new BaseAdapter(){
 
 			@Override
@@ -408,14 +387,10 @@ public class DialogUtils
 
 		View[] v=new View[2];
 		View viewDialog=initDialog(context,R.layout.dialog_edit);
-		TextView de_title=(TextView) viewDialog.findViewById(R.id.de_title);
+		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
 		EditText de_ed=(EditText) viewDialog.findViewById(R.id.de_ed);
 		Button de_qd=(Button) viewDialog.findViewById(R.id.de_qd);
-		if(title!=null&&!title.equals("")){
-			de_title.setText(title);
-		}else{
-			de_title.setVisibility(View.GONE);
-		}
+		initTitle(title);
 		de_ed.setHint(hint);
 		de_qd.setOnClickListener(new OnClickListener(){
 
@@ -438,14 +413,10 @@ public class DialogUtils
 	public Button dialogj(String title,final String message){
 		
 		View viewDialog=initDialog(context,R.layout.dialog_jiazai);
-		TextView dj_title=(TextView) viewDialog.findViewById(R.id.dj_title);
-		 dj_ts=(TextView) viewDialog.findViewById(R.id.dj_ts);
+		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
+		 tv_toast_message=(TextView) viewDialog.findViewById(R.id.tv_toast_message);
 		Button dj_qx=(Button) viewDialog.findViewById(R.id.dj_qx);
-		if(title!=null&&!title.equals("")){
-			dj_title.setText(title);
-		}else{
-			dj_title.setVisibility(View.GONE);
-		}
+		initTitle(title);
 		dj_qx.setOnClickListener(new OnClickListener(){
 
 				@Override
@@ -455,7 +426,7 @@ public class DialogUtils
 				}
 			});
 		
-		dj_ts.setText(message);
+		tv_toast_message.setText(message);
 		setCanceledOnTouchOutside(false);
 		return dj_qx;
 
@@ -465,14 +436,10 @@ public class DialogUtils
     public void dialogj1(String title,final String message){
 		
 		View viewDialog=initDialog(context,R.layout.dialog_jiazai1);
-        TextView dj_title=(TextView) viewDialog.findViewById(R.id.dj_title);
-        dj_ts=(TextView) viewDialog.findViewById(R.id.dj_ts);
-        if(title!=null&&!title.equals("")){
-            dj_title.setText(title);
-        }else{
-            dj_title.setVisibility(View.GONE);
-        }
-        dj_ts.setText(message);
+        tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
+        tv_toast_message=(TextView) viewDialog.findViewById(R.id.tv_toast_message);
+        initTitle(title);
+        tv_toast_message.setText(message);
         setCanceledOnTouchOutside(false);
 	}
 	
@@ -482,17 +449,13 @@ public class DialogUtils
 
         View[] v=new View[1];
         View viewDialog=initDialog(context,R.layout.dialog_image);
-        TextView di_title=(TextView) viewDialog.findViewById(R.id.di_title);
-        dj_ts=(TextView) viewDialog.findViewById(R.id.di_ts);
+        tv_title=(TextView) viewDialog.findViewById(R.id.di_title);
+        tv_toast_message=(TextView) viewDialog.findViewById(R.id.di_ts);
 		ImageView di_image=(ImageView) viewDialog.findViewById(R.id.di_image);
 		di_image.setImageResource(drawableId);
         Button di_qd=(Button) viewDialog.findViewById(R.id.di_qd);
-        if(title!=null&&!title.equals("")){
-            di_title.setText(title);
-        }else{
-            di_title.setVisibility(View.GONE);
-        }
-        dj_ts.setText(message);
+        initTitle(title);
+        tv_toast_message.setText(message);
 		di_qd.setOnClickListener(new OnClickListener(){
 
 				@Override
@@ -513,15 +476,11 @@ public class DialogUtils
     public Button dialogt1(String title,final String message){
 
         View viewDialog=initDialog(context,R.layout.dialog_toast1);
-        TextView dt_title=(TextView) viewDialog.findViewById(R.id.dt_title);
-        dj_ts=(TextView) viewDialog.findViewById(R.id.dt_ts);
+        tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
+        tv_toast_message=(TextView) viewDialog.findViewById(R.id.dt_ts);
         Button dt_qd=(Button) viewDialog.findViewById(R.id.dt_qd);
-        if(title!=null&&!title.equals("")){
-            dt_title.setText(title);
-        }else{
-            dt_title.setVisibility(View.GONE);
-        }
-        dj_ts.setText(message);
+        initTitle(title);
+        tv_toast_message.setText(message);
 		dt_qd.setOnClickListener(new OnClickListener(){
 
 				@Override
@@ -540,16 +499,12 @@ public class DialogUtils
 
 		View[] v=new View[2];
 		View viewDialog=initDialog(context,R.layout.dialog_toast);
-		TextView dt_title=(TextView) viewDialog.findViewById(R.id.dt_title);
-		dj_ts=(TextView) viewDialog.findViewById(R.id.dt_ts);
+		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
+		tv_toast_message=(TextView) viewDialog.findViewById(R.id.dt_ts);
 		Button dt_qd=(Button) viewDialog.findViewById(R.id.dt_qd);
 		Button dt_qx=(Button) viewDialog.findViewById(R.id.dt_qx);
-		if(title!=null&&!title.equals("")){
-			dt_title.setText(title);
-		}else{
-			dt_title.setVisibility(View.GONE);
-		}
-		dj_ts.setText(message);
+		initTitle(title);
+		tv_toast_message.setText(message);
 		v[0]=dt_qx;
 		v[1]=dt_qd;
         setCanceledOnTouchOutside(true);
@@ -564,14 +519,10 @@ public class DialogUtils
 
 	    View[] vv=new View[2];
 		View viewDialog=initDialog(context,R.layout.dialog_update_log);
-		TextView du_title=(TextView) viewDialog.findViewById(R.id.duu_title);
+		tv_title=(TextView) viewDialog.findViewById(R.id.duu_title);
 		ListView du_list=(ListView) viewDialog.findViewById(R.id.duu_list);
 		Button du_qd=(Button) viewDialog.findViewById(R.id.duu_qd);
-		if(title!=null&&!title.equals("")){
-			du_title.setText(title);
-		}else{
-			du_title.setVisibility(View.GONE);
-		}
+		initTitle(title);
 		du_list.setAdapter(new BaseAdapter(){
 
 				Zujian zujian;
@@ -679,16 +630,10 @@ public class DialogUtils
 		final IconTextItem it= new IconTextItem();
 		
 		builder = new BottomSheetDialog(context);
-		View view = LayoutInflater.from(context).inflate(R.layout.icon_text_recycl_item, null);
+		View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet_list, null);
 		RecyclerView rv_new_file_list=(RecyclerView) view.findViewById(R.id.rv_list);
-		TextView tv_title=(TextView) view.findViewById(R.id.tv_title);
-		
-		if(title!=null||!title.equals("")){
-			tv_title.setText(title);
-		}else{
-			tv_title.setVisibility(View.GONE);
-		}
-		
+		tv_title=(TextView) view.findViewById(R.id.tv_title);	
+		initTitle(title);
 		rv_new_file_list.setLayoutManager(new LinearLayoutManager(context));
 		List<ItemData> da=new ArrayList<ItemData>();
 		IconTextRecyclerViewAdapter nFAdp=new IconTextRecyclerViewAdapter(da,isShowIcon);
@@ -708,9 +653,52 @@ public class DialogUtils
 		builder.show();
 		return it; 
 	}
-	
-	
 
+	//SeekBar对话框
+    public View[] dialogSeekBar(String title,int max,int progress){
+
+		View[] v=new View[2];
+        View viewDialog=initDialog(context,R.layout.dialog_seekbar);
+        tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
+        SeekBar ds_sb=(SeekBar) viewDialog.findViewById(R.id.ds_sb);
+        Button ds_qd=(Button) viewDialog.findViewById(R.id.ds_qd);
+        initTitle(title);
+        ds_sb.setMax(max);
+		ds_sb.setProgress(progress);
+		ds_qd.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View p1){
+					dis();
+					// TODO: Implement this method
+				}
+			});
+		setCanceledOnTouchOutside(true);
+		v[0]=ds_sb;
+		v[1]=ds_qd;
+		
+        return v;   
+	}
+
+	public TextView getTitle(){
+		return tv_title;
+	}
+	
+	public void setTitle(String title){
+		if (tv_title!=null){
+			initTitle(title);
+		}
+	}
+
+	private void initTitle(String title){
+		if(title!=null&&!title.equals("")){
+			tv_title.setText(title);
+			tv_title.setVisibility(View.VISIBLE);
+		}else{
+			tv_title.setVisibility(View.GONE);
+		}
+	}
+	
 	//设置对话框是否能被返回键或者触控屏幕关闭
 	public void setCanceledOnTouchOutside(boolean cancel){
 		builder.setCanceledOnTouchOutside(cancel);	
@@ -718,13 +706,13 @@ public class DialogUtils
 	}
 	
 	public void setToast(String s){
-		if(dj_ts!=null){
-		dj_ts.setText(s);
+		if (tv_toast_message!=null){
+			tv_toast_message.setText(s);
 		}
 	}
 	
 	public TextView getToastTextView(){
-		return dj_ts;
+		return tv_toast_message;
 	}
 	
 }
