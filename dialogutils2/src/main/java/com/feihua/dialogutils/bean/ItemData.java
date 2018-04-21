@@ -1,7 +1,6 @@
 package com.feihua.dialogutils.bean;
 
-public class ItemData
-{
+public class ItemData{
 	private int icon;
 	private String name;
 
@@ -21,17 +20,19 @@ public class ItemData
 	public int getIcon(){
 		return icon;
 	}
-	public static ItemData toUpdateLog(int icon,String name){
+
+	public static ItemData toItemData(int icon,String name){
 		ItemData ul=new ItemData();
 		ul.setIcon(icon);
 		ul.setName(name);
 		return ul;
 	}
-	public static ItemData toUpdateLog(String name){
+
+	public static ItemData toItemData(String name){
 		ItemData ul=new ItemData();
 		ul.setIcon(-1);
 		ul.setName(name);
 		return ul;
 	}
-	
-	}
+
+}

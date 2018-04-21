@@ -13,22 +13,10 @@
 		android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
-	android:gravity="center"
-	>
+	android:gravity="center">
 
-	<TextView
-		android:textIsSelectable="true"
-		android:layout_height="wrap_content"
-		android:text="标题"
-		android:layout_width="wrap_content"
-		android:textColor="#000000"
-		android:textStyle="bold"
-		android:layout_marginTop="10dp"
-		android:textSize="20sp"
-		android:id="@+id/duu_title"
-		android:gravity="center"
-		android:layout_marginLeft="15dp"
-		android:layout_marginRight="15dp"/>
+	<include
+		layout="@layout/dialog_title"/>
 
 	<ListView
 		android:layout_height="wrap_content"

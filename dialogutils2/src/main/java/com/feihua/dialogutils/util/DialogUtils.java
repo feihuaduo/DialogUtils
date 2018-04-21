@@ -16,9 +16,10 @@ import java.util.*;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout.LayoutParams;
 import com.feihua.dialogutils.bean.*;
-import android.support.design.widget.BottomSheetDialog;
 import com.feihua.dialogutils.base.OnITItemClickListener;
 import android.support.v4.content.ContextCompat;
+import com.feihua.dialogutils.view.*;
+import android.support.design.widget.*;
 /*对话框相关方法
 *
 */
@@ -69,7 +70,7 @@ public class DialogUtils
 	
 	
 	private Dialog initDialog(Context context){
-		if (builder==null){
+		if (builder==null||builder.getClass()!=Dialog.class){
 			builder=new Dialog(context, R.style.dialog);
 			//去除原dialog标题
 			builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -284,7 +285,7 @@ public class DialogUtils
 
         View[] v=new View[2];
         View viewDialog=initDialog(context,R.layout.dialog_rec);
-		tv_title=(TextView) viewDialog.findViewById(R.id.dr_title);
+		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
         RecyclerView dr_rec= (RecyclerView) viewDialog.findViewById(R.id.dr_rec);
         Button dr_qd=(Button) viewDialog.findViewById(R.id.dr_qd);
         initTitle(title);
@@ -448,7 +449,7 @@ public class DialogUtils
 
         View[] v=new View[1];
         View viewDialog=initDialog(context,R.layout.dialog_image);
-        tv_title=(TextView) viewDialog.findViewById(R.id.di_title);
+        tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
         tv_toast_message=(TextView) viewDialog.findViewById(R.id.di_ts);
 		ImageView di_image=(ImageView) viewDialog.findViewById(R.id.di_image);
 		di_image.setImageResource(drawableId);
@@ -468,8 +469,6 @@ public class DialogUtils
        	setCanceledOnTouchOutside(true);
         return v;   
 	}
-	
-	
 	
 	//单按钮提示对话框
     public Button dialogt1(String title,final String message){
@@ -518,7 +517,7 @@ public class DialogUtils
 
 	    View[] vv=new View[2];
 		View viewDialog=initDialog(context,R.layout.dialog_update_log);
-		tv_title=(TextView) viewDialog.findViewById(R.id.duu_title);
+		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
 		ListView du_list=(ListView) viewDialog.findViewById(R.id.duu_list);
 		Button du_qd=(Button) viewDialog.findViewById(R.id.duu_qd);
 		initTitle(title);
@@ -603,7 +602,7 @@ public class DialogUtils
 	*layoutId layout的id
 	*/
 	public View dialogBottomSheet(int layoutId){
-		builder = new BottomSheetDialog(context);
+		builder = new BottomSheetDialog((Activity)context);
 		View view = LayoutInflater.from(context).inflate(layoutId, null);
 		builder.setContentView(view);
 		builder.show();
@@ -618,6 +617,46 @@ public class DialogUtils
 		}
 	}
 	
+	
+	/*
+	 *底部划出的Dialog列表
+	 *title 标题
+	 *list  列表
+	 */
+	public IconTextItem dialogBottomSheetListIconText(String title,String[] list){
+
+		final IconTextItem it= new IconTextItem();
+
+		builder = new BottomSheetDialog((Activity)context);
+		View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet_list, null);
+		builder.setContentView(view);
+		builder.show();
+
+		List<ItemData> data=new ArrayList<ItemData>();
+		for(String s:list){
+			data.add(ItemData.toItemData(s));
+		}
+		RecyclerView rv_new_file_list=(RecyclerView) view.findViewById(R.id.rv_list);
+		tv_title=(TextView) view.findViewById(R.id.tv_title);	
+		initTitle(title);
+		rv_new_file_list.setLayoutManager(new LinearLayoutManager(context));
+		IconTextRecyclerViewAdapter nFAdp=new IconTextRecyclerViewAdapter(data,false);
+		rv_new_file_list.setAdapter(nFAdp);
+		nFAdp.setOnITItemClickListener(new OnITItemClickListener(){
+
+				@Override
+				public void onItemClick(int position){
+					if(it.onITItemClickListener!=null){
+						it.onITItemClickListener.onItemClick(position);
+					}
+					// TODO: Implement this method
+				}
+			});
+
+
+		return it; 
+	}
+	
 	/*
 	*底部划出的Dialog列表
 	*title 标题
@@ -628,14 +667,16 @@ public class DialogUtils
 		
 		final IconTextItem it= new IconTextItem();
 		
-		builder = new BottomSheetDialog(context);
+		builder = new BottomSheetDialog((Activity)context);
 		View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet_list, null);
+		builder.setContentView(view);
+		builder.show();
+		
 		RecyclerView rv_new_file_list=(RecyclerView) view.findViewById(R.id.rv_list);
 		tv_title=(TextView) view.findViewById(R.id.tv_title);	
 		initTitle(title);
 		rv_new_file_list.setLayoutManager(new LinearLayoutManager(context));
-		List<ItemData> da=new ArrayList<ItemData>();
-		IconTextRecyclerViewAdapter nFAdp=new IconTextRecyclerViewAdapter(da,isShowIcon);
+		IconTextRecyclerViewAdapter nFAdp=new IconTextRecyclerViewAdapter(data,isShowIcon);
 		rv_new_file_list.setAdapter(nFAdp);
 		nFAdp.setOnITItemClickListener(new OnITItemClickListener(){
 
@@ -648,8 +689,7 @@ public class DialogUtils
 				}
 			});
 		
-		builder.setContentView(view);
-		builder.show();
+		
 		return it; 
 	}
 

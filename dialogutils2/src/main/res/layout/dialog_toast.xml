@@ -14,19 +14,8 @@
 		android:orientation="vertical"
 		android:gravity="center">
 
-			<TextView
-				android:textIsSelectable="true"
-				android:layout_height="wrap_content"
-				android:text="标题"
-				android:layout_width="match_parent"
-				android:textColor="#000000"
-				android:textStyle="bold"
-				android:textSize="@dimen/dialog_title_size"
-				android:id="@+id/dt_title"
-				android:gravity="center"
-				android:layout_marginTop="10dp"
-				android:layout_marginLeft="10dp"
-				android:layout_marginRight="10dp"/>
+		<include
+			layout="@layout/dialog_title"/>
 			
 		
 

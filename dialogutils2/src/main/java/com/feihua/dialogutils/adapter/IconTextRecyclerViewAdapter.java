@@ -1,5 +1,5 @@
 package com.feihua.dialogutils.adapter;
-import android.support.v7.widget.*;
+import android.support.v7.widget.RecyclerView;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
@@ -7,17 +7,18 @@ import com.feihua.dialogutils.*;
 import com.feihua.dialogutils.base.OnITItemClickListener;
 import com.feihua.dialogutils.bean.ItemData;
 import java.util.*;
+import android.content.*;
+import android.util.*;
 
 public class IconTextRecyclerViewAdapter extends RecyclerView.Adapter<IconTextRecyclerViewAdapter.ViewHolder>
 {
 	private List<ItemData> data;
 	private boolean isShowIcon;
+	
 	public IconTextRecyclerViewAdapter(List<ItemData> data,boolean isShowIcon){
 		this.data=data;
 		this.isShowIcon=isShowIcon;
 	}
-	
-	
 	
 	@Override
 	public IconTextRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup p1,int p2){
@@ -54,7 +55,7 @@ public class IconTextRecyclerViewAdapter extends RecyclerView.Adapter<IconTextRe
 	}
 
 	@Override
-	public int getItemCount(){
+	public int getItemCount(){	
 		// TODO: Implement this method
 		return data.size();
 	}
