@@ -18,6 +18,7 @@ import android.widget.LinearLayout.LayoutParams;
 import com.feihua.dialogutils.bean.*;
 import android.support.design.widget.BottomSheetDialog;
 import com.feihua.dialogutils.base.OnITItemClickListener;
+import android.support.v4.content.ContextCompat;
 /*对话框相关方法
 *
 */
@@ -364,7 +365,7 @@ public class DialogUtils
 			public View getView(int p1, View p2, ViewGroup p3)
 			{
 				TextView t=new TextView(context);
-				t.setTextColor(context.getColor(R.color.colorMain));
+				t.setTextColor(ContextCompat.getColor(context,R.color.colorMain));
 				t.setText(ss[p1]);//p1为对应的数组下标
 				t.setTextSize(20);
 				t.setGravity(Gravity.CENTER);
