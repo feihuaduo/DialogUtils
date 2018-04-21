@@ -648,6 +648,10 @@ public class DialogUtils
 		return v;	
 	}
 	
+	/*
+	*底部滑出空白Dialog
+	*layoutId layout的id
+	*/
 	public View dialogBottomSheet(int layoutId){
 		builder = new BottomSheetDialog(context);
 		View view = LayoutInflater.from(context).inflate(layoutId, null);
@@ -664,7 +668,12 @@ public class DialogUtils
 		}
 	}
 	
-	//底部划出的Dialog列表
+	/*
+	*底部划出的Dialog列表
+	*title 标题
+	*data item列表
+	*isShowIcon 是否显示图标
+	*/
 	public IconTextItem dialogBottomSheetListIconText(String title,List<ItemData> data,boolean isShowIcon){
 		
 		final IconTextItem it= new IconTextItem();
