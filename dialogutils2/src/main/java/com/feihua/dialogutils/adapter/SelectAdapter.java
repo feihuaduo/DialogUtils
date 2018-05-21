@@ -47,8 +47,8 @@ public class SelectAdapter extends BaseAdapter
 		if(p2==null){
 			zujian=new Zujian();
 			p2=LayoutInflater.from(context).inflate(R.layout.item_select,null);
-			zujian.is_text=(TextView) p2.findViewById(R.id.is_text);
-			zujian.is_point=(Point) p2.findViewById(R.id.is_point);
+			zujian.is_text=p2.findViewById(R.id.is_text);
+			zujian.is_point=p2.findViewById(R.id.is_point);
 			p2.setTag(zujian);
 		}else{
 			zujian=(Zujian) p2.getTag();

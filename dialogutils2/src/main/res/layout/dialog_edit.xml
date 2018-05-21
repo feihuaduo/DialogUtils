@@ -7,34 +7,30 @@
 	app:cardCornerRadius="@dimen/dialog_corner_radius"
 	app:elevation="15dp"
 	app:cardBackgroundColor="@color/colorDialogBackground">
+<LinearLayout
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:gravity="center_horizontal">
 
-	<LinearLayout
-		android:layout_width="fill_parent"
+	<include
+		layout="@layout/dialog_title"/>
+
+	<EditText
+		android:layout_marginTop="10dp"
 		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		android:gravity="center_horizontal">
+		android:layout_width="match_parent"
+		android:ems="10"
+		android:id="@+id/de_ed"
+		android:layout_weight="1000"
+		android:minLines="2"/>
 
-		<include
-			layout="@layout/dialog_title"/>
-		
-		<EditText
-			android:layout_marginTop="10dp"
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
-			android:ems="10"
-			android:id="@+id/de_ed"
-			android:minHeight="50dp"
-			android:layout_weight="1000"
-			android:minLines="3"/>
+	<Button
+		style="@style/dialog_button"
+		android:layout_width="match_parent"
+		android:text="确定"
+		android:id="@+id/de_qd"
+		android:textColor="#008CF9"/>
 
-		<Button
-			style="@style/dialog_button"
-			android:layout_width="match_parent"
-			android:text="确定"
-			android:id="@+id/de_qd"
-			android:textColor="#008CF9"/>
-
-	</LinearLayout>
-
+</LinearLayout>
 </android.support.v7.widget.CardView>
-

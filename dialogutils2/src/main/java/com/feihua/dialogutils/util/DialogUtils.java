@@ -33,6 +33,8 @@ public class DialogUtils
 	private Context context;
 	private static List<DialogUtils> contexts=new ArrayList<DialogUtils>();
 
+	private View viewDialog;
+
 	public Context getContext()
 	{
 		return context;
@@ -95,7 +97,7 @@ public class DialogUtils
 		initDialog(context);
 
 		LayoutInflater inflater = LayoutInflater.from(context);
-		View viewDialog = inflater.inflate(layout, null);	
+		viewDialog = inflater.inflate(layout, null);	
 		int width;
 		if(context instanceof Activity){
 			Activity a=(Activity)context;
@@ -142,11 +144,11 @@ public class DialogUtils
 
 
 		final Select se=new Select();
-		View viewDialog=initDialog(context,R.layout.dialog_select);
-		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
-		Button ds_qd=(Button) viewDialog.findViewById(R.id.ds_qd);
-		Button ds_qx=(Button) viewDialog.findViewById(R.id.ds_qx);
-		ListView ds_list=(ListView) viewDialog.findViewById(R.id.ds_list);
+		viewDialog=initDialog(context,R.layout.dialog_select);
+		tv_title=viewDialog.findViewById(R.id.tv_title);
+		Button ds_qd=viewDialog.findViewById(R.id.ds_qd);
+		Button ds_qx=viewDialog.findViewById(R.id.ds_qx);
+		ListView ds_list=viewDialog.findViewById(R.id.ds_list);
 		initTitle(title);	
 		final SelectAdapter sa=new SelectAdapter(context,data,positions);
 		ds_list.setAdapter(sa);
@@ -220,11 +222,11 @@ public class DialogUtils
 
 		
 		final Select se=new Select();
-		View viewDialog=initDialog(context,R.layout.dialog_select);
-		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
-		Button ds_qd=(Button) viewDialog.findViewById(R.id.ds_qd);
-		Button ds_qx=(Button) viewDialog.findViewById(R.id.ds_qx);
-		ListView ds_list=(ListView) viewDialog.findViewById(R.id.ds_list);
+		viewDialog=initDialog(context,R.layout.dialog_select);
+		tv_title=viewDialog.findViewById(R.id.tv_title);
+		Button ds_qd=viewDialog.findViewById(R.id.ds_qd);
+		Button ds_qx=viewDialog.findViewById(R.id.ds_qx);
+		ListView ds_list=viewDialog.findViewById(R.id.ds_list);
 		
 		initTitle(title);
 		final List<Integer> po=new ArrayList<Integer>();
@@ -267,10 +269,11 @@ public class DialogUtils
 				public void onClick(View p1)
 				{
 					if(po.size()!=0){
+						dis();
 						if(se.onr!=null){
 					se.onr.onRadio(data,po.get(0));
 					}
-					dis();
+					
 					}
 					// TODO: Implement this method
 				}
@@ -284,14 +287,22 @@ public class DialogUtils
     public View[] dialogRec(String title,RecyclerView.Adapter adp,RecyclerView.LayoutManager layout){
 
         View[] v=new View[2];
-        View viewDialog=initDialog(context,R.layout.dialog_rec);
-		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
-        RecyclerView dr_rec= (RecyclerView) viewDialog.findViewById(R.id.dr_rec);
-        Button dr_qd=(Button) viewDialog.findViewById(R.id.dr_qd);
+        viewDialog=initDialog(context,R.layout.dialog_rec);
+		tv_title=viewDialog.findViewById(R.id.tv_title);
+        RecyclerView dr_rec= viewDialog.findViewById(R.id.dr_rec);
+        Button dr_qd=viewDialog.findViewById(R.id.dr_qd);
         initTitle(title);
 		dr_rec.setLayoutManager(layout);
 		dr_rec.setAdapter(adp);
+		dr_qd.setOnClickListener(new OnClickListener(){
 
+				@Override
+				public void onClick(View p1)
+				{
+					dis();
+					// TODO: Implement this method
+				}
+			});
 
         v[0]=dr_rec;
 		v[1]=dr_qd;
@@ -303,10 +314,10 @@ public class DialogUtils
     public View[] dialoggrid(String title,ListAdapter adp,int numColumns){
 
         View[] v=new View[2];
-        View viewDialog=initDialog(context,R.layout.dialog_grid);
-		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
-        GridView dt_grid= (GridView) viewDialog.findViewById(R.id.dt_grid);
-        Button dt_qd=(Button) viewDialog.findViewById(R.id.dt_qd);
+        viewDialog=initDialog(context,R.layout.dialog_grid);
+		tv_title=viewDialog.findViewById(R.id.tv_title);
+        GridView dt_grid= viewDialog.findViewById(R.id.dt_grid);
+        Button dt_qd=viewDialog.findViewById(R.id.dt_qd);
         initTitle(title);
 		dt_grid.setNumColumns(numColumns);
 		dt_grid.setAdapter(adp);
@@ -321,9 +332,9 @@ public class DialogUtils
 	//listview对话框
 	public ListView dialogl1(String title,final BaseAdapter badp){
 
-		View viewDialog=initDialog(context,R.layout.dialog_list);
-		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
-		ListView dl_list=(ListView) viewDialog.findViewById(R.id.dl_list);
+		viewDialog=initDialog(context,R.layout.dialog_list);
+		tv_title=viewDialog.findViewById(R.id.tv_title);
+		ListView dl_list=viewDialog.findViewById(R.id.dl_list);
 		initTitle(title);
 		dl_list.setAdapter(badp);
 
@@ -336,9 +347,9 @@ public class DialogUtils
 //listview对话框
 	public ListView dialogl(String title,final String[] ss){
 		
-		View viewDialog=initDialog(context,R.layout.dialog_list);
-		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
-		ListView dl_list=(ListView) viewDialog.findViewById(R.id.dl_list);
+		viewDialog=initDialog(context,R.layout.dialog_list);
+		tv_title=viewDialog.findViewById(R.id.tv_title);
+		ListView dl_list=viewDialog.findViewById(R.id.dl_list);
 		initTitle(title);
 		BaseAdapter b=new BaseAdapter(){
 
@@ -366,7 +377,7 @@ public class DialogUtils
 			public View getView(int p1, View p2, ViewGroup p3)
 			{
 				TextView t=new TextView(context);
-				t.setTextColor(ContextCompat.getColor(context,R.color.colorMain));
+				t.setTextColor(ContextCompat.getColor(context,R.color.colorPrimary));
 				t.setText(ss[p1]);//p1为对应的数组下标
 				t.setTextSize(20);
 				t.setGravity(Gravity.CENTER);
@@ -386,10 +397,10 @@ public class DialogUtils
 	public View[] dialoge(String title,String hint){
 
 		View[] v=new View[2];
-		View viewDialog=initDialog(context,R.layout.dialog_edit);
-		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
-		EditText de_ed=(EditText) viewDialog.findViewById(R.id.de_ed);
-		Button de_qd=(Button) viewDialog.findViewById(R.id.de_qd);
+		viewDialog=initDialog(context,R.layout.dialog_edit);
+		tv_title=viewDialog.findViewById(R.id.tv_title);
+		EditText de_ed=viewDialog.findViewById(R.id.de_ed);
+		Button de_qd=viewDialog.findViewById(R.id.de_qd);
 		initTitle(title);
 		de_ed.setHint(hint);
 		de_qd.setOnClickListener(new OnClickListener(){
@@ -412,10 +423,10 @@ public class DialogUtils
 //加载对话框
 	public Button dialogj(String title,final String message){
 		
-		View viewDialog=initDialog(context,R.layout.dialog_jiazai);
-		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
-		 tv_toast_message=(TextView) viewDialog.findViewById(R.id.tv_toast_message);
-		Button dj_qx=(Button) viewDialog.findViewById(R.id.dj_qx);
+		viewDialog=initDialog(context,R.layout.dialog_jiazai);
+		tv_title=viewDialog.findViewById(R.id.tv_title);
+		 tv_toast_message=viewDialog.findViewById(R.id.tv_toast_message);
+		Button dj_qx=viewDialog.findViewById(R.id.dj_qx);
 		initTitle(title);
 		dj_qx.setOnClickListener(new OnClickListener(){
 
@@ -435,9 +446,9 @@ public class DialogUtils
 	//无按钮加载对话框
     public void dialogj1(String title,final String message){
 		
-		View viewDialog=initDialog(context,R.layout.dialog_jiazai1);
-        tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
-        tv_toast_message=(TextView) viewDialog.findViewById(R.id.tv_toast_message);
+		viewDialog=initDialog(context,R.layout.dialog_jiazai1);
+        tv_title=viewDialog.findViewById(R.id.tv_title);
+        tv_toast_message=viewDialog.findViewById(R.id.tv_toast_message);
         initTitle(title);
         tv_toast_message.setText(message);
         setCanceledOnTouchOutside(false);
@@ -448,12 +459,12 @@ public class DialogUtils
     public View[] dialogi(String title,final String message,int drawableId){
 
         View[] v=new View[1];
-        View viewDialog=initDialog(context,R.layout.dialog_image);
-        tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
-        tv_toast_message=(TextView) viewDialog.findViewById(R.id.di_ts);
-		ImageView di_image=(ImageView) viewDialog.findViewById(R.id.di_image);
+        viewDialog=initDialog(context,R.layout.dialog_image);
+        tv_title=viewDialog.findViewById(R.id.tv_title);
+        tv_toast_message=viewDialog.findViewById(R.id.di_ts);
+		ImageView di_image=viewDialog.findViewById(R.id.di_image);
 		di_image.setImageResource(drawableId);
-        Button di_qd=(Button) viewDialog.findViewById(R.id.di_qd);
+        Button di_qd=viewDialog.findViewById(R.id.di_qd);
         initTitle(title);
         tv_toast_message.setText(message);
 		di_qd.setOnClickListener(new OnClickListener(){
@@ -473,10 +484,10 @@ public class DialogUtils
 	//单按钮提示对话框
     public Button dialogt1(String title,final String message){
 
-        View viewDialog=initDialog(context,R.layout.dialog_toast1);
-        tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
-        tv_toast_message=(TextView) viewDialog.findViewById(R.id.dt_ts);
-        Button dt_qd=(Button) viewDialog.findViewById(R.id.dt_qd);
+        viewDialog=initDialog(context,R.layout.dialog_toast1);
+        tv_title=viewDialog.findViewById(R.id.tv_title);
+        tv_toast_message=viewDialog.findViewById(R.id.dt_ts);
+        Button dt_qd=viewDialog.findViewById(R.id.dt_qd);
         initTitle(title);
         tv_toast_message.setText(message);
 		dt_qd.setOnClickListener(new OnClickListener(){
@@ -496,11 +507,11 @@ public class DialogUtils
 	public View[] dialogt(String title,final String message){
 
 		View[] v=new View[2];
-		View viewDialog=initDialog(context,R.layout.dialog_toast);
-		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
-		tv_toast_message=(TextView) viewDialog.findViewById(R.id.dt_ts);
-		Button dt_qd=(Button) viewDialog.findViewById(R.id.dt_qd);
-		Button dt_qx=(Button) viewDialog.findViewById(R.id.dt_qx);
+		viewDialog=initDialog(context,R.layout.dialog_toast);
+		tv_title=viewDialog.findViewById(R.id.tv_title);
+		tv_toast_message=viewDialog.findViewById(R.id.dt_ts);
+		Button dt_qd=viewDialog.findViewById(R.id.dt_qd);
+		Button dt_qx=viewDialog.findViewById(R.id.dt_qx);
 		initTitle(title);
 		tv_toast_message.setText(message);
 		v[0]=dt_qx;
@@ -516,11 +527,23 @@ public class DialogUtils
 	public View[] dialogUpdateLog(String title,final List<UpdateLog> data){
 
 	    View[] vv=new View[2];
-		View viewDialog=initDialog(context,R.layout.dialog_update_log);
-		tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
-		ListView du_list=(ListView) viewDialog.findViewById(R.id.duu_list);
-		Button du_qd=(Button) viewDialog.findViewById(R.id.duu_qd);
+		viewDialog=initDialog(context,R.layout.dialog_update_log);
+		tv_title=viewDialog.findViewById(R.id.tv_title);
+		ListView du_list=viewDialog.findViewById(R.id.duu_list);
+		Button du_qd=viewDialog.findViewById(R.id.duu_qd);
 		initTitle(title);
+		du_list.setOnItemLongClickListener(new OnItemLongClickListener(){
+
+				@Override
+				public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					ClipboardManager cmb = (ClipboardManager) context.getSystemService(context.CLIPBOARD_SERVICE);
+					cmb.setText(data.get(p3).getVersion()+"\n"+data.get(p3).getMessage());//复制命令
+					Toast.makeText(context,"已复制到剪贴板",Toast.LENGTH_SHORT).show();
+					// TODO: Implement this method
+					return true;
+				}
+			});
 		du_list.setAdapter(new BaseAdapter(){
 
 				Zujian zujian;
@@ -554,8 +577,8 @@ public class DialogUtils
 					if(p2==null){
 						zujian=new Zujian();
 						p2=LayoutInflater.from(context).inflate(R.layout.item_update_log,null);
-						zujian.upda_vosin=(TextView) p2.findViewById(R.id.upda_vosin);
-						zujian.upda_message=(TextView) p2.findViewById(R.id.upda_message);
+						zujian.upda_vosin=p2.findViewById(R.id.upda_vosin);
+						zujian.upda_message=p2.findViewById(R.id.upda_message);
 
 						p2.setTag(zujian);
 
@@ -581,11 +604,11 @@ public class DialogUtils
 	public View[] dialogAppUpdate(String version,String message){
 
 		View[] v=new View[2];
-		View viewDialog=initDialog(context,R.layout.dialog_app_update);
-		Button du_qd=(Button) viewDialog.findViewById(R.id.du_qd);
-		Button du_qx=(Button) viewDialog.findViewById(R.id.du_qx);
-		TextView du_version=(TextView) viewDialog.findViewById(R.id.du_version_name);
-		TextView du_update_message=(TextView) viewDialog.findViewById(R.id.du_update_message);
+		viewDialog=initDialog(context,R.layout.dialog_app_update);
+		Button du_qd=viewDialog.findViewById(R.id.du_qd);
+		Button du_qx=viewDialog.findViewById(R.id.du_qx);
+		TextView du_version=viewDialog.findViewById(R.id.du_version_name);
+		TextView du_update_message=viewDialog.findViewById(R.id.du_update_message);
 
 		du_version.setText(version);
 		du_update_message.setText(message);
@@ -636,8 +659,8 @@ public class DialogUtils
 		for(String s:list){
 			data.add(ItemData.toItemData(s));
 		}
-		RecyclerView rv_new_file_list=(RecyclerView) view.findViewById(R.id.rv_list);
-		tv_title=(TextView) view.findViewById(R.id.tv_title);	
+		RecyclerView rv_new_file_list=view.findViewById(R.id.rv_list);
+		tv_title=view.findViewById(R.id.tv_title);	
 		initTitle(title);
 		rv_new_file_list.setLayoutManager(new LinearLayoutManager(context));
 		IconTextRecyclerViewAdapter nFAdp=new IconTextRecyclerViewAdapter(data,false);
@@ -672,8 +695,8 @@ public class DialogUtils
 		builder.setContentView(view);
 		builder.show();
 		
-		RecyclerView rv_new_file_list=(RecyclerView) view.findViewById(R.id.rv_list);
-		tv_title=(TextView) view.findViewById(R.id.tv_title);	
+		RecyclerView rv_new_file_list=view.findViewById(R.id.rv_list);
+		tv_title=view.findViewById(R.id.tv_title);	
 		initTitle(title);
 		rv_new_file_list.setLayoutManager(new LinearLayoutManager(context));
 		IconTextRecyclerViewAdapter nFAdp=new IconTextRecyclerViewAdapter(data,isShowIcon);
@@ -697,10 +720,10 @@ public class DialogUtils
     public View[] dialogSeekBar(String title,int max,int progress){
 
 		View[] v=new View[2];
-        View viewDialog=initDialog(context,R.layout.dialog_seekbar);
-        tv_title=(TextView) viewDialog.findViewById(R.id.tv_title);
-        SeekBar ds_sb=(SeekBar) viewDialog.findViewById(R.id.ds_sb);
-        Button ds_qd=(Button) viewDialog.findViewById(R.id.ds_qd);
+        viewDialog=initDialog(context,R.layout.dialog_seekbar);
+        tv_title=viewDialog.findViewById(R.id.tv_title);
+        SeekBar ds_sb=viewDialog.findViewById(R.id.ds_sb);
+        Button ds_qd=viewDialog.findViewById(R.id.ds_qd);
         initTitle(title);
         ds_sb.setMax(max);
 		ds_sb.setProgress(progress);
@@ -719,6 +742,10 @@ public class DialogUtils
         return v;   
 	}
 
+	public View getViewDialog(){
+		return viewDialog;
+	}
+	
 	public TextView getTitle(){
 		return tv_title;
 	}

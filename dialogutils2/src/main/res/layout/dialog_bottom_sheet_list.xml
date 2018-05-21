@@ -4,7 +4,7 @@
     android:orientation="vertical">
     <TextView
 		android:id="@+id/tv_title"
-		android:textColor="@color/colorMain"
+		android:textColor="@color/colorPrimary"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:layout_margin="10dp"
