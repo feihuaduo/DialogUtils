@@ -93,7 +93,6 @@
 				android:text="确定"
 				android:layout_width="0dp"
 				android:layout_weight="1"
-				android:textColor="#008CF9"
 				android:id="@+id/du_qd"
 				style="@style/dialog_button"/>
 
@@ -107,7 +106,6 @@
 				android:text="取消"
 				android:layout_width="0dp"
 				android:layout_weight="1"
-				android:textColor="#008CF9"
 				android:id="@+id/du_qx"/>
 
 		</LinearLayout>

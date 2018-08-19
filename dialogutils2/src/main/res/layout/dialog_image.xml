@@ -58,11 +58,9 @@
 			android:background="@color/colorDivider"/>
 
 		<Button
-			android:layout_height="wrap_content"
-			style="?android:attr/buttonBarButtonStyle"
+			style="@style/dialog_button"
 			android:text="确定"
 			android:layout_width="match_parent"
-			android:textColor="#008CF9"
 			android:id="@+id/di_qd"/>
 
 	</LinearLayout>

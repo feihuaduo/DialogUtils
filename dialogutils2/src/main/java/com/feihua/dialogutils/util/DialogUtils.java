@@ -20,6 +20,8 @@ import com.feihua.dialogutils.base.OnITItemClickListener;
 import android.support.v4.content.ContextCompat;
 import com.feihua.dialogutils.view.*;
 import android.support.design.widget.*;
+import android.os.*;
+import android.view.inputmethod.*;
 /*对话框相关方法
 *
 */
@@ -83,6 +85,7 @@ public class DialogUtils
 			builder.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION);
 		}
 
+		
 		builder.show();
 		return builder;
 	}
@@ -114,6 +117,11 @@ public class DialogUtils
 		builder.setContentView(viewDialog, layoutParams);
 		return viewDialog;
 		// TODO: Implement this method
+	}
+	
+	public void setDialogWidth(int width){
+		LayoutParams layoutParams = new LayoutParams(width,LayoutParams.WRAP_CONTENT);
+		builder.setContentView(viewDialog, layoutParams);
 	}
 	
 	public interface OnRadioListener{
@@ -399,7 +407,7 @@ public class DialogUtils
 		View[] v=new View[2];
 		viewDialog=initDialog(context,R.layout.dialog_edit);
 		tv_title=(TextView)viewDialog.findViewById(R.id.tv_title);
-		EditText de_ed=(EditText)viewDialog.findViewById(R.id.de_ed);
+		final EditText de_ed=(EditText)viewDialog.findViewById(R.id.de_ed);
 		Button de_qd=(Button)viewDialog.findViewById(R.id.de_qd);
 		initTitle(title);
 		de_ed.setHint(hint);
@@ -415,10 +423,20 @@ public class DialogUtils
 		v[0]=de_ed;
 		v[1]=de_qd;
 	   setCanceledOnTouchOutside(true);
+	   	new Handler().postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					de_ed.requestFocus();
+					InputMethodManager imm = (InputMethodManager) de_ed.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);     
+					// imm.showSoftInput(v,InputMethodManager.SHOW_FORCED);    
+
+					imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+				
+				}
+			}, 100);
 		return v;
 
 	}
-
 
 //加载对话框
 	public Button dialogj(String title,final String message){
@@ -779,6 +797,10 @@ public class DialogUtils
 	
 	public TextView getToastTextView(){
 		return tv_toast_message;
+	}
+	
+	public Dialog getDialog(){
+		return builder;
 	}
 	
 }

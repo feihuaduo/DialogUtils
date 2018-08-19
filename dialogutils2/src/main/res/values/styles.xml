@@ -11,7 +11,7 @@
 		<item name="android:textStyle">bold</item>
 		<item name="android:textSize">@dimen/dialog_button_text_size</item>
 		<item name="android:layout_height">@dimen/dialog_button_height</item>
-		<item name="android:textColor">@color/colorPrimary</item>
+		<item name="android:textColor">@color/colorAccent</item>
 	</style>
 	
 	<style name="dialog_title">

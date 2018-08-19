@@ -38,7 +38,6 @@
 			style="@style/dialog_button"
 			android:text="确定"
 			android:layout_width="match_parent"
-			android:textColor="#008CF9"
 			android:id="@+id/duu_qd"/>
 
 	</LinearLayout>
