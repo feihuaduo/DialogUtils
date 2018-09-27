@@ -775,6 +775,8 @@ public class DialogUtils
 	}
 
 	private void initTitle(String title){
+		if(tv_title==null)
+			return;
 		if(title!=null&&!title.equals("")){
 			tv_title.setText(title);
 			tv_title.setVisibility(View.VISIBLE);
