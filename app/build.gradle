@@ -19,11 +19,11 @@ android {
 }
 
 dependencies {
-	api 'com.android.support:appcompat-v7:27.1.0'
+	api 'com.android.support:appcompat-v7:27.1.1'
     api fileTree(dir: 'libs', include: ['*.jar'])
-//
-//    api 'junit:junit:4.12'
-//    api 'com.android.support.test:runner:1.0.1'
-//    api 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    api 'junit:junit:4.12'
+    api 'com.android.support.test:runner:1.0.2'
+    api 'com.android.support.test.espresso:espresso-core:3.0.2'
 	
 }
