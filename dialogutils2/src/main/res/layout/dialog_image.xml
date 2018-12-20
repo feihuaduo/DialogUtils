@@ -1,69 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-	
-<android.support.v7.widget.CardView
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	app:cardCornerRadius="@dimen/dialog_corner_radius"
-	app:elevation="15dp"
-	app:cardBackgroundColor="@color/colorDialogBackground">
-	
-<LinearLayout
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	android:gravity="center">
-	<include
-		layout="@layout/dialog_title"/>
-	
 
-	<ScrollView
-		android:layout_marginBottom="15dp"
-		android:layout_marginTop="15dp"
-		android:layout_marginLeft="10dp"
-		android:layout_marginRight="10dp"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:layout_weight="1000">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/colorDialogBackground"
+    app:cardCornerRadius="@dimen/dialog_corner_radius"
+    app:elevation="15dp">
 
-		<TextView
-			android:layout_height="wrap_content"
-			android:text="这是一个警告,我使用了警告警告菌泥嚎泥嚎你们"
-			android:layout_width="wrap_content"
-			android:textColor="#000000"
-			android:textSize="16sp"
-			android:id="@+id/di_ts"
-			android:gravity="center"
-			android:textStyle="bold"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
 
-	</ScrollView>
+        <include layout="@layout/dialog_title" />
 
-	<ImageView
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:id="@+id/di_image"
-		android:layout_marginLeft="10dp"
-		android:layout_marginRight="10dp"
-		android:layout_marginBottom="10dp"/>
 
-	<LinearLayout
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:orientation="vertical">
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1000">
 
-		<View
-			android:layout_height="1dp"
-			android:layout_width="match_parent"
-			android:background="@color/colorDivider"/>
+            <TextView
+                android:id="@+id/di_ts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="这是一个警告,我使用了警告警告菌泥嚎泥嚎你们"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-		<Button
-			style="@style/dialog_button"
-			android:text="确定"
-			android:layout_width="match_parent"
-			android:id="@+id/di_qd"/>
+        </ScrollView>
 
-	</LinearLayout>
+        <ImageView
+            android:id="@+id/di_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp" />
 
-</LinearLayout>
-</android.support.v7.widget.CardView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivider" />
+
+            <Button
+                android:id="@+id/di_qd"
+                style="@style/dialog_button"
+                android:layout_width="match_parent"
+                android:text="确定" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

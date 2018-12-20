@@ -5,7 +5,7 @@
 	android:layout_height="wrap_content"
 	android:orientation="horizontal"
 	android:gravity="center_vertical"
-	android:background="@drawable/dianji_background"
+	android:background="@drawable/click_background"
 	android:minHeight="58dp">
 
 	<ImageView

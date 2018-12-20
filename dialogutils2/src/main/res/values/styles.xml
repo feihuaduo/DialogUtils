@@ -7,7 +7,7 @@
 	</style>
 	
 	<style name="dialog_button">
-		<item name="android:background">@drawable/dianji_background</item>
+		<item name="android:background">@drawable/click_background</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:textSize">@dimen/dialog_button_text_size</item>
 		<item name="android:layout_height">@dimen/dialog_button_height</item>

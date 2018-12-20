@@ -1,13 +1,16 @@
 package com.feihua.dialogutils.view;
-import android.widget.*;
-import android.util.*;
-import android.content.*;
-import android.graphics.*;
-import android.view.*;
+
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.util.AttributeSet;
+import android.view.View;
 
 public class Point extends View
 {
-	public Point(Context context,AttributeSet ast){
+	public Point(Context context, AttributeSet ast){
 		super(context,ast);
 	}
 

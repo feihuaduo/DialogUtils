@@ -1,14 +1,19 @@
 package com.feihua.dialogutils.adapter;
-import android.support.v7.widget.RecyclerView;
-import android.view.*;
-import android.view.View.*;
-import android.widget.*;
-import com.feihua.dialogutils.*;
+
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.feihua.dialogutils.R;
 import com.feihua.dialogutils.base.OnITItemClickListener;
 import com.feihua.dialogutils.bean.ItemData;
-import java.util.*;
-import android.content.*;
-import android.util.*;
+
+import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class IconTextRecyclerViewAdapter extends RecyclerView.Adapter<IconTextRecyclerViewAdapter.ViewHolder>
 {
@@ -21,7 +26,7 @@ public class IconTextRecyclerViewAdapter extends RecyclerView.Adapter<IconTextRe
 	}
 	
 	@Override
-	public IconTextRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup p1,int p2){
+	public IconTextRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup p1, int p2){
 		View v=LayoutInflater.from(p1.getContext()).inflate(R.layout.icon_text_recycl_item,p1,false);
 		// TODO: Implement this method
 		return new ViewHolder(v);
@@ -41,7 +46,7 @@ public class IconTextRecyclerViewAdapter extends RecyclerView.Adapter<IconTextRe
 			vh.iv_icon.setVisibility(View.GONE);
 		}
 		
-		vh.v.setOnClickListener(new OnClickListener(){
+		vh.v.setOnClickListener(new View.OnClickListener(){
 
 				@Override
 				public void onClick(View p1){

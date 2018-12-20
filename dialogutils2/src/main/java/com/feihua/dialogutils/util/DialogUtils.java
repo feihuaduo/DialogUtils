@@ -1,27 +1,50 @@
 package com.feihua.dialogutils.util;
-import android.app.*;
-import android.content.*;
-import android.graphics.*;
-import android.support.v7.widget.*;
-import android.util.*;
-import android.view.*;
-import android.view.View.*;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import android.widget.LinearLayout.*;
-import com.feihua.dialogutils.*;
-import com.feihua.dialogutils.adapter.*;
-import java.util.*;
 
-import android.view.View.OnClickListener;
-import android.widget.LinearLayout.LayoutParams;
-import com.feihua.dialogutils.bean.*;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.Service;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.feihua.dialogutils.R;
+import com.feihua.dialogutils.adapter.IconTextRecyclerViewAdapter;
+import com.feihua.dialogutils.adapter.SelectAdapter;
 import com.feihua.dialogutils.base.OnITItemClickListener;
-import android.support.v4.content.ContextCompat;
-import com.feihua.dialogutils.view.*;
-import android.support.design.widget.*;
-import android.os.*;
-import android.view.inputmethod.*;
+import com.feihua.dialogutils.bean.ItemData;
+import com.feihua.dialogutils.bean.UpdateLog;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 /*对话框相关方法
 *
 */
@@ -85,7 +108,7 @@ public class DialogUtils
 			builder.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION);
 		}
 
-		
+
 		builder.show();
 		return builder;
 	}
@@ -98,29 +121,27 @@ public class DialogUtils
 	public View initDialog(Context context,int layout)
 	{
 		initDialog(context);
-
 		LayoutInflater inflater = LayoutInflater.from(context);
 		viewDialog = inflater.inflate(layout, null);	
 		int width;
 		if(context instanceof Activity){
 			Activity a=(Activity)context;
 			Display display = a.getWindowManager().getDefaultDisplay();
-			width=display.getWidth();
+			width=Math.min(display.getWidth(),display.getHeight());
 		}else{
 			DisplayMetrics dm = new DisplayMetrics();
 			Service se=(Service) context;
 			dm = se.getResources().getDisplayMetrics();
-			width = dm.widthPixels;
+			width =Math.min(dm.widthPixels,dm.heightPixels);
 		}
 		//设置对话框的宽高
-		LayoutParams layoutParams = new LayoutParams(width * 73 / 100,LayoutParams.WRAP_CONTENT);
+		ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(width * 73 / 100,ViewGroup.LayoutParams.WRAP_CONTENT);
 		builder.setContentView(viewDialog, layoutParams);
 		return viewDialog;
-		// TODO: Implement this method
 	}
 	
 	public void setDialogWidth(int width){
-		LayoutParams layoutParams = new LayoutParams(width,LayoutParams.WRAP_CONTENT);
+		ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(width,ViewGroup.LayoutParams.WRAP_CONTENT);
 		builder.setContentView(viewDialog, layoutParams);
 	}
 	
@@ -163,7 +184,7 @@ public class DialogUtils
 		if(positions.size()!=0){
 			ds_list.setSelection(positions.get(0));
 		}
-		ds_list.setOnItemClickListener(new OnItemClickListener(){
+		ds_list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
 				@Override
 				public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
@@ -176,20 +197,18 @@ public class DialogUtils
 							positions.add(new Integer(p3));
 						}
 						sa.notifyDataSetChanged();
-					
-					// TODO: Implement this method
+
 				}
 			});
-		ds_qx.setOnClickListener(new OnClickListener(){
+		ds_qx.setOnClickListener(new View.OnClickListener(){
 
 				@Override
 				public void onClick(View p1)
 				{
 					dis();
-					// TODO: Implement this method
 				}
 			});
-		ds_qd.setOnClickListener(new OnClickListener(){
+		ds_qd.setOnClickListener(new View.OnClickListener(){
 
 				@Override
 				public void onClick(View p1)
@@ -199,7 +218,6 @@ public class DialogUtils
 						se.onc.OnCheckbox(data,positions);
 						dis();
 					}
-					// TODO: Implement this method
 				}
 			});
 
@@ -244,7 +262,7 @@ public class DialogUtils
 		if(position!=-1){
 			ds_list.setSelection(position);
 		}
-		ds_list.setOnItemClickListener(new OnItemClickListener(){
+		ds_list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
 				@Override
 				public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
@@ -259,19 +277,17 @@ public class DialogUtils
 						po.add(new Integer(p3));
 						sa.notifyDataSetChanged();
 					}
-					// TODO: Implement this method
 				}
 			});
-		ds_qx.setOnClickListener(new OnClickListener(){
+		ds_qx.setOnClickListener(new View.OnClickListener(){
 
 				@Override
 				public void onClick(View p1)
 				{
 					dis();
-					// TODO: Implement this method
 				}
 			});
-		ds_qd.setOnClickListener(new OnClickListener(){
+		ds_qd.setOnClickListener(new View.OnClickListener(){
 
 				@Override
 				public void onClick(View p1)
@@ -283,7 +299,6 @@ public class DialogUtils
 					}
 					
 					}
-					// TODO: Implement this method
 				}
 			});
 		
@@ -292,7 +307,7 @@ public class DialogUtils
 	}
 	
 	//RecyclerView布局提示对话框
-    public View[] dialogRec(String title,RecyclerView.Adapter adp,RecyclerView.LayoutManager layout){
+    public View[] dialogRec(String title, RecyclerView.Adapter adp, RecyclerView.LayoutManager layout){
 
         View[] v=new View[2];
         viewDialog=initDialog(context,R.layout.dialog_rec);
@@ -302,13 +317,12 @@ public class DialogUtils
         initTitle(title);
 		dr_rec.setLayoutManager(layout);
 		dr_rec.setAdapter(adp);
-		dr_qd.setOnClickListener(new OnClickListener(){
+		dr_qd.setOnClickListener(new View.OnClickListener(){
 
 				@Override
 				public void onClick(View p1)
 				{
 					dis();
-					// TODO: Implement this method
 				}
 			});
 
@@ -319,7 +333,7 @@ public class DialogUtils
 	}
 	
 	//表格布局提示对话框
-    public View[] dialoggrid(String title,ListAdapter adp,int numColumns){
+    public View[] dialoggrid(String title, ListAdapter adp, int numColumns){
 
         View[] v=new View[2];
         viewDialog=initDialog(context,R.layout.dialog_grid);
@@ -370,14 +384,12 @@ public class DialogUtils
 			@Override
 			public Object getItem(int p1)//未知，好像无用
 			{
-				// TODO: Implement this method
 				return ss[p1];
 			}
 
 			@Override
 			public long getItemId(int p1)//未知，好像无用
 			{
-				// TODO: Implement this method
 				return p1;
 			}
 
@@ -411,12 +423,11 @@ public class DialogUtils
 		Button de_qd=(Button)viewDialog.findViewById(R.id.de_qd);
 		initTitle(title);
 		de_ed.setHint(hint);
-		de_qd.setOnClickListener(new OnClickListener(){
+		de_qd.setOnClickListener(new View.OnClickListener(){
 
 				@Override
 				public void onClick(View p1){
 					dis();
-					// TODO: Implement this method
 				}
 			});
 		
@@ -427,7 +438,7 @@ public class DialogUtils
 				@Override
 				public void run() {
 					de_ed.requestFocus();
-					InputMethodManager imm = (InputMethodManager) de_ed.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);     
+					InputMethodManager imm = (InputMethodManager) de_ed.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 					// imm.showSoftInput(v,InputMethodManager.SHOW_FORCED);    
 
 					imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
@@ -446,12 +457,11 @@ public class DialogUtils
 		 tv_toast_message=(TextView)viewDialog.findViewById(R.id.tv_toast_message);
 		Button dj_qx=(Button)viewDialog.findViewById(R.id.dj_qx);
 		initTitle(title);
-		dj_qx.setOnClickListener(new OnClickListener(){
+		dj_qx.setOnClickListener(new View.OnClickListener(){
 
 				@Override
 				public void onClick(View p1){
 					dis();
-					// TODO: Implement this method
 				}
 			});
 		
@@ -485,12 +495,11 @@ public class DialogUtils
         Button di_qd=(Button)viewDialog.findViewById(R.id.di_qd);
         initTitle(title);
         tv_toast_message.setText(message);
-		di_qd.setOnClickListener(new OnClickListener(){
+		di_qd.setOnClickListener(new View.OnClickListener(){
 
 				@Override
 				public void onClick(View p1){
 					dis();
-					// TODO: Implement this method
 				}
 			});
 		
@@ -508,12 +517,11 @@ public class DialogUtils
         Button dt_qd=(Button)viewDialog.findViewById(R.id.dt_qd);
         initTitle(title);
         tv_toast_message.setText(message);
-		dt_qd.setOnClickListener(new OnClickListener(){
+		dt_qd.setOnClickListener(new View.OnClickListener(){
 
 				@Override
 				public void onClick(View p1){
 					dis();
-					// TODO: Implement this method
 				}
 			});
    	   setCanceledOnTouchOutside(true);
@@ -550,7 +558,7 @@ public class DialogUtils
 		ListView du_list=(ListView)viewDialog.findViewById(R.id.duu_list);
 		Button du_qd=(Button)viewDialog.findViewById(R.id.duu_qd);
 		initTitle(title);
-		du_list.setOnItemLongClickListener(new OnItemLongClickListener(){
+		du_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
 
 				@Override
 				public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4)
@@ -558,7 +566,6 @@ public class DialogUtils
 					ClipboardManager cmb = (ClipboardManager) context.getSystemService(context.CLIPBOARD_SERVICE);
 					cmb.setText(data.get(p3).getVersion()+"\n"+data.get(p3).getMessage());//复制命令
 					Toast.makeText(context,"已复制到剪贴板",Toast.LENGTH_SHORT).show();
-					// TODO: Implement this method
 					return true;
 				}
 			});
@@ -571,21 +578,18 @@ public class DialogUtils
 				@Override
 				public int getCount()
 				{
-					// TODO: Implement this method
 					return data.size();
 				}
 
 				@Override
 				public Object getItem(int p1)
 				{
-					// TODO: Implement this method
 					return data.get(p1);
 				}
 
 				@Override
 				public long getItemId(int p1)
 				{
-					// TODO: Implement this method
 					return p1;
 				}
 
@@ -606,7 +610,6 @@ public class DialogUtils
 					zujian.upda_vosin.setText(data.get(p1).getVersion());
 					zujian.upda_message.setText(data.get(p1).getMessage());
 
-					// TODO: Implement this method
 					return p2;
 				}
 			});
@@ -690,11 +693,8 @@ public class DialogUtils
 					if(it.onITItemClickListener!=null){
 						it.onITItemClickListener.onItemClick(position);
 					}
-					// TODO: Implement this method
 				}
 			});
-
-
 		return it; 
 	}
 	
@@ -726,7 +726,6 @@ public class DialogUtils
 					if(it.onITItemClickListener!=null){
 					it.onITItemClickListener.onItemClick(position);
 					}
-					// TODO: Implement this method
 				}
 			});
 		
@@ -745,12 +744,11 @@ public class DialogUtils
         initTitle(title);
         ds_sb.setMax(max);
 		ds_sb.setProgress(progress);
-		ds_qd.setOnClickListener(new OnClickListener(){
+		ds_qd.setOnClickListener(new View.OnClickListener(){
 
 				@Override
 				public void onClick(View p1){
 					dis();
-					// TODO: Implement this method
 				}
 			});
 		setCanceledOnTouchOutside(true);
@@ -787,8 +785,7 @@ public class DialogUtils
 	
 	//设置对话框是否能被返回键或者触控屏幕关闭
 	public void setCanceledOnTouchOutside(boolean cancel){
-		builder.setCanceledOnTouchOutside(cancel);	
-		// TODO: Implement this method
+		builder.setCanceledOnTouchOutside(cancel);
 	}
 	
 	public void setToast(String s){

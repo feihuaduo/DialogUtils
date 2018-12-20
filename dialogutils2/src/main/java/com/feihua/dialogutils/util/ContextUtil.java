@@ -1,10 +1,16 @@
 package com.feihua.dialogutils.util;
 
-import android.app.*;
-import android.content.*;
-import java.util.*;
 
-public class ContextUtil 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.Application;
+import android.app.Service;
+import android.content.ComponentName;
+import android.content.Context;
+
+import java.util.List;
+
+public class ContextUtil
 {
 	
 	public static boolean isServiceExisted(Context context, String className) {
