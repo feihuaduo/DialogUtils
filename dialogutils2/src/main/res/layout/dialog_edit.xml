@@ -16,20 +16,20 @@
 	<include
 		layout="@layout/dialog_title"/>
 
-	<EditText
+	<androidx.appcompat.widget.AppCompatEditText
 		android:layout_marginTop="10dp"
-		android:layout_height="wrap_content"
+		android:layout_height="0dp"
 		android:layout_width="match_parent"
 		android:ems="10"
-		android:id="@+id/de_ed"
+		android:id="@+id/et_edit"
 		android:layout_weight="1000"
 		android:minLines="2"/>
 
-	<Button
+	<androidx.appcompat.widget.AppCompatButton
 		style="@style/dialog_button"
 		android:layout_width="match_parent"
-		android:text="确定"
-		android:id="@+id/de_qd"/>
+		android:text="@string/ok"
+		android:id="@+id/bt_ok"/>
 
 </LinearLayout>
 </androidx.cardview.widget.CardView>

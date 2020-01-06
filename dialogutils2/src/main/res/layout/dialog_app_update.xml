@@ -89,7 +89,7 @@
 			android:layout_width="match_parent"
 			android:orientation="horizontal">
 
-			<Button
+			<androidx.appcompat.widget.AppCompatButton
 				android:text="确定"
 				android:layout_width="0dp"
 				android:layout_weight="1"
@@ -101,7 +101,7 @@
 				android:layout_width="1dp"
 				android:background="@color/colorDivider"/>
 
-			<Button
+			<androidx.appcompat.widget.AppCompatButton
 				style="@style/dialog_button"
 				android:text="取消"
 				android:layout_width="0dp"

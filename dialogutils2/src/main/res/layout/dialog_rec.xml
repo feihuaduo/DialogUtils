@@ -1,55 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	app:cardCornerRadius="@dimen/dialog_corner_radius"
-	app:elevation="15dp"
-	app:cardBackgroundColor="@color/colorDialogBackground">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/dialog_corner_radius"
+    app:elevation="15dp"
+    app:cardBackgroundColor="@color/colorDialogBackground">
 
-	<LinearLayout
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		android:gravity="center">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
 
-		<include
-			layout="@layout/dialog_title"/>
+        <include layout="@layout/dialog_title" />
 
-		<LinearLayout
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
-			android:orientation="vertical"
-			android:layout_margin="10dp"
-			android:layout_weight="1000">
+        <LinearLayout
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            android:layout_weight="1000">
 
-			<android.support.v7.widget.RecyclerView
-				android:id="@+id/dr_rec"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"/>
-		</LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/dr_rec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-		<View
-			android:layout_height="1dp"
-			android:layout_width="match_parent"
-			android:background="@color/colorDivider"/>
+        <View
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="@color/colorDivider" />
 
-		<LinearLayout
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
-			android:orientation="horizontal">
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
 
-			<Button
-				style="@style/dialog_button"
-				android:text="确定"
-				android:layout_width="wrap_content"
-				android:layout_weight="3"
-				android:id="@+id/dr_qd"/>
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/dialog_button"
+                android:text="@string/ok"
+                android:layout_width="match_parent"
+                android:id="@+id/dr_qd" />
 
-		</LinearLayout>
+        </LinearLayout>
 
-	</LinearLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
 

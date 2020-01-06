@@ -34,11 +34,11 @@
 			android:layout_width="match_parent"
 			android:background="@color/colorDivider"/>
 
-		<Button
+		<androidx.appcompat.widget.AppCompatButton
 			style="@style/dialog_button"
-			android:text="确定"
+			android:text="ok"
 			android:layout_width="match_parent"
-			android:id="@+id/ds_qd"/>
+			android:id="@+id/bt_ok"/>
 
 	</LinearLayout>
 

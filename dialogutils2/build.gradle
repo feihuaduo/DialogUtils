@@ -7,7 +7,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
-        versionName "1.0"
+        versionName "1.8.9.1"
 
     }
 
@@ -27,7 +27,7 @@ dependencies {
 //    api 'com.android.support:recyclerview-v7:27.1.0'
 //    api 'com.android.support:design:27.1.0'
 
-    api 'androidx.appcompat:appcompat:1.0.2'
+    api 'androidx.appcompat:appcompat:1.1.0'
     api 'com.google.android.material:material:1.0.0'
 
    // compile fileTree(include: ['*.jar'], dir: 'libs')

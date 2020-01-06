@@ -19,7 +19,7 @@
 		layout="@layout/dialog_title"/>
 
 	<LinearLayout
-		android:layout_height="wrap_content"
+		android:layout_height="0dp"
 		android:layout_width="match_parent"
 		android:orientation="vertical"
 		android:layout_weight="1000">
@@ -27,7 +27,7 @@
 		<ListView
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
-			android:id="@+id/ds_list"/>
+			android:id="@+id/lv_list"/>
 
 	</LinearLayout>
 
@@ -41,24 +41,24 @@
 		android:layout_width="match_parent"
 		android:orientation="horizontal">
 
-		<Button
+		<androidx.appcompat.widget.AppCompatButton
 			style="@style/dialog_button"
-			android:text="确定"
+			android:text="@string/ok"
 			android:layout_width="wrap_content"
 			android:layout_weight="3"
-			android:id="@+id/ds_qd"/>
+			android:id="@+id/bt_ok"/>
 
 		<View
 			android:layout_height="match_parent"
 			android:layout_width="1dp"
 			android:background="#C6C6C6"/>
 
-		<Button
+		<androidx.appcompat.widget.AppCompatButton
 			style="@style/dialog_button"
-			android:text="取消"
+			android:text="@string/cancel"
 			android:layout_width="wrap_content"
 			android:layout_weight="3"
-			android:id="@+id/ds_qx"/>
+			android:id="@+id/bt_cancel"/>
 
 	</LinearLayout>
 

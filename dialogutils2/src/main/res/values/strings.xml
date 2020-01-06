@@ -2,4 +2,6 @@
 <resources>
 
     <string name="lib_name">DialogUtils</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
 </resources>

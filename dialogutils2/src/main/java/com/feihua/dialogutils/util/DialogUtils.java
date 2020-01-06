@@ -9,14 +9,12 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -29,14 +27,16 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.feihua.dialogutils.R;
 import com.feihua.dialogutils.adapter.IconTextRecyclerViewAdapter;
 import com.feihua.dialogutils.adapter.SelectAdapter;
+import com.feihua.dialogutils.adapter.TextBaseAdapter;
 import com.feihua.dialogutils.base.OnITItemClickListener;
+import com.feihua.dialogutils.base.listener.OnCheckboxListener;
+import com.feihua.dialogutils.base.listener.OnRadioListener;
 import com.feihua.dialogutils.bean.ItemData;
 import com.feihua.dialogutils.bean.UpdateLog;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -48,21 +48,44 @@ import java.util.List;
  *
  */
 public class DialogUtils {
+    private static List<DialogUtils> contexts = new ArrayList<>();
     //对话框中提示内容
     private TextView tv_toast_message;
     private TextView tv_title;
     //对话框对象
     private Dialog builder;
     private Context context;
-    private static List<DialogUtils> contexts = new ArrayList<DialogUtils>();
-
     private View viewDialog;
 
-    public Context getContext() {
-        return context;
+    private DialogUtils(Context context) {
+        this.context = context;
+    }
+
+    /**
+     * 获取DialogUtil对象
+     *
+     * @param context 上下文对象
+     * @return 当前上下文的DialogUtiil对象
+     */
+    public static DialogUtils getInstance(Context context) {
+        DialogUtils dut = getDu(context);
+        if (dut != null) {
+            return dut;
+        } else {
+            DialogUtils du = new DialogUtils(context);
+            contexts.add(du);
+            return du;
+        }
     }
 
     //获取该类对象
+
+    /**
+     * @param context 上下文对象
+     * @return 当前上下文的DialogUtiil对象
+     * @deprecated 使用getInstance方法代替
+     */
+    @Deprecated
     public static DialogUtils getdx(Context context) {
         DialogUtils dut = getDu(context);
         if (dut != null) {
@@ -83,31 +106,31 @@ public class DialogUtils {
         return null;
     }
 
-    private DialogUtils(Context context) {
-        this.context = context;
+    public Context getContext() {
+        return context;
     }
 
     //关闭Dialog
     public void dis() {
-        builder.dismiss();
+        if (builder.isShowing())
+            builder.dismiss();
     }
 
 
-    private Dialog initDialog(Context context) {
+    private void initDialog(Context context) {
         if (builder == null || builder.getClass() != Dialog.class) {
             builder = new Dialog(context, R.style.dialog);
             //去除原dialog标题
             builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
-        if (context instanceof Service) {
-            builder.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        } else {
-            builder.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION);
-        }
-
-
+        Window window = builder.getWindow();
+        if (window != null)
+            if (context instanceof Service) {
+                window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+            } else {
+                window.setType(WindowManager.LayoutParams.TYPE_APPLICATION);
+            }
         builder.show();
-        return builder;
     }
 
     /*
@@ -141,27 +164,6 @@ public class DialogUtils {
         builder.setContentView(viewDialog, layoutParams);
     }
 
-    public interface OnRadioListener {
-        void onRadio(List<String> data, int position);
-    }
-
-    public interface OnCheckboxListener {
-        void OnCheckbox(List<String> data, List<Integer> positons);
-    }
-
-    public class Select {
-        private OnRadioListener onr;
-        private OnCheckboxListener onc;
-
-        public void setOnRadioListener(OnRadioListener onr) {
-            this.onr = onr;
-        }
-
-        public void setOnCheckboxListener(OnCheckboxListener onc) {
-            this.onc = onc;
-        }
-    }
-
     /*多选对话框
      *title 标题
      *data 要选择的数据列表
@@ -169,20 +171,19 @@ public class DialogUtils {
      */
     public Select dialogCheckbox(String title, final List<String> data, final List<Integer> positions) {
 
-
         final Select se = new Select();
         viewDialog = initDialog(context, R.layout.dialog_select);
         tv_title = (TextView) viewDialog.findViewById(R.id.tv_title);
-        Button ds_qd = (Button) viewDialog.findViewById(R.id.ds_qd);
-        Button ds_qx = (Button) viewDialog.findViewById(R.id.ds_qx);
-        ListView ds_list = (ListView) viewDialog.findViewById(R.id.ds_list);
+        Button bt_ok = (Button) viewDialog.findViewById(R.id.bt_ok);
+        Button bt_cancel = (Button) viewDialog.findViewById(R.id.bt_cancel);
+        ListView lv_list = (ListView) viewDialog.findViewById(R.id.lv_list);
         initTitle(title);
         final SelectAdapter sa = new SelectAdapter(context, data, positions);
-        ds_list.setAdapter(sa);
+        lv_list.setAdapter(sa);
         if (positions.size() != 0) {
-            ds_list.setSelection(positions.get(0));
+            lv_list.setSelection(positions.get(0));
         }
-        ds_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
@@ -191,20 +192,20 @@ public class DialogUtils {
                 if (position != -1) {
                     removein(positions, position);
                 } else {
-                    positions.add(new Integer(p3));
+                    positions.add(p3);
                 }
                 sa.notifyDataSetChanged();
 
             }
         });
-        ds_qx.setOnClickListener(new View.OnClickListener() {
+        bt_cancel.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View p1) {
                 dis();
             }
         });
-        ds_qd.setOnClickListener(new View.OnClickListener() {
+        bt_ok.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View p1) {
@@ -245,42 +246,42 @@ public class DialogUtils {
         final Select se = new Select();
         viewDialog = initDialog(context, R.layout.dialog_select);
         tv_title = (TextView) viewDialog.findViewById(R.id.tv_title);
-        Button ds_qd = (Button) viewDialog.findViewById(R.id.ds_qd);
-        Button ds_qx = (Button) viewDialog.findViewById(R.id.ds_qx);
-        ListView ds_list = (ListView) viewDialog.findViewById(R.id.ds_list);
+        Button bt_ok = (Button) viewDialog.findViewById(R.id.bt_ok);
+        Button bt_cancel = (Button) viewDialog.findViewById(R.id.bt_cancel);
+        ListView lv_list = (ListView) viewDialog.findViewById(R.id.lv_list);
 
         initTitle(title);
         final List<Integer> po = new ArrayList<Integer>();
-        po.add(new Integer(position));
+        po.add(position);
         final SelectAdapter sa = new SelectAdapter(context, data, po);
-        ds_list.setAdapter(sa);
+        lv_list.setAdapter(sa);
         if (position != -1) {
-            ds_list.setSelection(position);
+            lv_list.setSelection(position);
         }
-        ds_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
                 if (po.size() != 0) {
                     if (po.get(0) != p3) {
                         po.clear();
-                        po.add(new Integer(p3));
+                        po.add(p3);
                     }
                     sa.notifyDataSetChanged();
                 } else {
-                    po.add(new Integer(p3));
+                    po.add(p3);
                     sa.notifyDataSetChanged();
                 }
             }
         });
-        ds_qx.setOnClickListener(new View.OnClickListener() {
+        bt_cancel.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View p1) {
                 dis();
             }
         });
-        ds_qd.setOnClickListener(new View.OnClickListener() {
+        bt_ok.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View p1) {
@@ -347,58 +348,31 @@ public class DialogUtils {
 
         viewDialog = initDialog(context, R.layout.dialog_list);
         tv_title = (TextView) viewDialog.findViewById(R.id.tv_title);
-        ListView dl_list = (ListView) viewDialog.findViewById(R.id.dl_list);
+        ListView lv_list = (ListView) viewDialog.findViewById(R.id.lv_list);
         initTitle(title);
-        dl_list.setAdapter(badp);
+        lv_list.setAdapter(badp);
 
         setCanceledOnTouchOutside(true);
-        return dl_list;
-
-
+        return lv_list;
     }
 
     //listview对话框
-    public ListView dialogl(String title, final String[] ss) {
+    public ListView dialogl(String title, final String[] data) {
+        return dialogl(title, data, 8, 8, 8, 8);
+    }
+
+    //listview对话框
+    public ListView dialogl(String title, final String[] data, int leftPadding, int rightPadding, int topPadding, int bottomPadding) {
 
         viewDialog = initDialog(context, R.layout.dialog_list);
         tv_title = (TextView) viewDialog.findViewById(R.id.tv_title);
-        ListView dl_list = (ListView) viewDialog.findViewById(R.id.dl_list);
+        ListView lv_list = (ListView) viewDialog.findViewById(R.id.lv_list);
         initTitle(title);
-        BaseAdapter b = new BaseAdapter() {
-
-            @Override
-            public int getCount() {
-                return ss.length;//设置此数据适配起有几个item
-            }
-
-            @Override
-            public Object getItem(int p1)//未知，好像无用
-            {
-                return ss[p1];
-            }
-
-            @Override
-            public long getItemId(int p1)//未知，好像无用
-            {
-                return p1;
-            }
-
-            @Override
-            public View getView(int p1, View p2, ViewGroup p3) {
-                TextView t = new TextView(context);
-                t.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
-                t.setText(ss[p1]);//p1为对应的数组下标
-                t.setTextSize(20);
-                t.setGravity(Gravity.CENTER);
-                t.setPadding(6, 6, 6, 6);
-                t.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.MATCH_PARENT));
-                return t;//返回设置好的view组件，也可以是布局，也可以是控件
-            }
-        };
-        dl_list.setAdapter(b);
+        BaseAdapter b = new TextBaseAdapter(context, data, leftPadding, topPadding, rightPadding, bottomPadding);
+        lv_list.setAdapter(b);
 
         setCanceledOnTouchOutside(true);
-        return dl_list;
+        return lv_list;
 
     }
 
@@ -408,11 +382,11 @@ public class DialogUtils {
         View[] v = new View[2];
         viewDialog = initDialog(context, R.layout.dialog_edit);
         tv_title = (TextView) viewDialog.findViewById(R.id.tv_title);
-        final EditText de_ed = (EditText) viewDialog.findViewById(R.id.de_ed);
-        Button de_qd = (Button) viewDialog.findViewById(R.id.de_qd);
+        final EditText et_edit = (EditText) viewDialog.findViewById(R.id.et_edit);
+        Button bt_ok = (Button) viewDialog.findViewById(R.id.bt_ok);
         initTitle(title);
-        de_ed.setHint(hint);
-        de_qd.setOnClickListener(new View.OnClickListener() {
+        et_edit.setHint(hint);
+        bt_ok.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View p1) {
@@ -420,14 +394,14 @@ public class DialogUtils {
             }
         });
 
-        v[0] = de_ed;
-        v[1] = de_qd;
+        v[0] = et_edit;
+        v[1] = bt_ok;
         setCanceledOnTouchOutside(true);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                de_ed.requestFocus();
-                InputMethodManager imm = (InputMethodManager) de_ed.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                et_edit.requestFocus();
+                InputMethodManager imm = (InputMethodManager) et_edit.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 // imm.showSoftInput(v,InputMethodManager.SHOW_FORCED);
 
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
@@ -470,7 +444,6 @@ public class DialogUtils {
         tv_toast_message.setText(message);
         setCanceledOnTouchOutside(false);
     }
-
 
     //单按钮单图片提示对话框
     public View[] dialogi(String title, final String message, int drawableId) {
@@ -517,7 +490,6 @@ public class DialogUtils {
         return dt_qd;
     }
 
-
     //双按钮提示对话框
     public View[] dialogt(String title, final String message) {
 
@@ -540,7 +512,6 @@ public class DialogUtils {
      *data 更新日志列表
      */
     public View[] dialogUpdateLog(String title, final List<UpdateLog> data) {
-
         View[] vv = new View[2];
         viewDialog = initDialog(context, R.layout.dialog_update_log);
         tv_title = (TextView) viewDialog.findViewById(R.id.tv_title);
@@ -551,7 +522,7 @@ public class DialogUtils {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4) {
-                ClipboardManager cmb = (ClipboardManager) context.getSystemService(context.CLIPBOARD_SERVICE);
+                ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                 cmb.setText(data.get(p3).getVersion() + "\n" + data.get(p3).getMessage());//复制命令
                 Toast.makeText(context, "已复制到剪贴板", Toast.LENGTH_SHORT).show();
                 return true;
@@ -559,11 +530,7 @@ public class DialogUtils {
         });
         du_list.setAdapter(new BaseAdapter() {
 
-            Zujian zujian;
-
-            class Zujian {
-                TextView upda_vosin, upda_message;
-            }
+            ViewHolder zujian;
 
             @Override
             public int getCount() {
@@ -583,7 +550,7 @@ public class DialogUtils {
             @Override
             public View getView(int p1, View p2, ViewGroup p3) {
                 if (p2 == null) {
-                    zujian = new Zujian();
+                    zujian = new ViewHolder();
                     p2 = LayoutInflater.from(context).inflate(R.layout.item_update_log, null);
                     zujian.upda_vosin = (TextView) p2.findViewById(R.id.upda_vosin);
                     zujian.upda_message = (TextView) p2.findViewById(R.id.upda_message);
@@ -591,12 +558,16 @@ public class DialogUtils {
                     p2.setTag(zujian);
 
                 } else {
-                    zujian = (Zujian) p2.getTag();
+                    zujian = (ViewHolder) p2.getTag();
                 }
                 zujian.upda_vosin.setText(data.get(p1).getVersion());
                 zujian.upda_message.setText(data.get(p1).getMessage());
 
                 return p2;
+            }
+
+            class ViewHolder {
+                TextView upda_vosin, upda_message;
             }
         });
 
@@ -638,15 +609,6 @@ public class DialogUtils {
         builder.show();
         return view;
     }
-
-    public class IconTextItem {
-        private OnITItemClickListener onITItemClickListener;
-
-        public void setOnITItemClickListener(OnITItemClickListener onITItemClickListener) {
-            this.onITItemClickListener = onITItemClickListener;
-        }
-    }
-
 
     /*
      *底部划出的Dialog列表
@@ -726,11 +688,11 @@ public class DialogUtils {
         viewDialog = initDialog(context, R.layout.dialog_seekbar);
         tv_title = (TextView) viewDialog.findViewById(R.id.tv_title);
         SeekBar ds_sb = (SeekBar) viewDialog.findViewById(R.id.ds_sb);
-        Button ds_qd = (Button) viewDialog.findViewById(R.id.ds_qd);
+        Button bt_ok = (Button) viewDialog.findViewById(R.id.bt_ok);
         initTitle(title);
         ds_sb.setMax(max);
         ds_sb.setProgress(progress);
-        ds_qd.setOnClickListener(new View.OnClickListener() {
+        bt_ok.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View p1) {
@@ -739,7 +701,7 @@ public class DialogUtils {
         });
         setCanceledOnTouchOutside(true);
         v[0] = ds_sb;
-        v[1] = ds_qd;
+        v[1] = bt_ok;
 
         return v;
     }
@@ -774,18 +736,50 @@ public class DialogUtils {
         builder.setCanceledOnTouchOutside(cancel);
     }
 
-    public void setToast(String s) {
+    public void setMessage(String message) {
         if (tv_toast_message != null) {
-            tv_toast_message.setText(s);
+            tv_toast_message.setText(message);
         }
     }
 
-    public TextView getToastTextView() {
+    public void setTitleColor(int color) {
+        if (tv_title != null)
+            tv_title.setTextColor(color);
+    }
+
+    public void setMessageColor(int color) {
+        if (tv_toast_message != null) {
+            tv_toast_message.setTextColor(color);
+        }
+    }
+
+    public TextView getMessageTextView() {
         return tv_toast_message;
     }
 
     public Dialog getDialog() {
         return builder;
+    }
+
+    public class Select {
+        private OnRadioListener onr;
+        private OnCheckboxListener onc;
+
+        public void setOnRadioListener(OnRadioListener onr) {
+            this.onr = onr;
+        }
+
+        public void setOnCheckboxListener(OnCheckboxListener onc) {
+            this.onc = onc;
+        }
+    }
+
+    public class IconTextItem {
+        private OnITItemClickListener onITItemClickListener;
+
+        public void setOnITItemClickListener(OnITItemClickListener onITItemClickListener) {
+            this.onITItemClickListener = onITItemClickListener;
+        }
     }
 
 }

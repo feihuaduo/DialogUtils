@@ -22,7 +22,7 @@
 	<ListView
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-		android:id="@+id/dl_list"/>
+		android:id="@+id/lv_list"/>
 
 </LinearLayout>
 </androidx.cardview.widget.CardView>

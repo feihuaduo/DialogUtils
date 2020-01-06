@@ -56,7 +56,7 @@
                 android:layout_height="1dp"
                 android:background="@color/colorDivider" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/di_qd"
                 style="@style/dialog_button"
                 android:layout_width="match_parent"
