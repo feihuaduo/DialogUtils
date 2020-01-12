@@ -43,7 +43,7 @@
                 style="@style/dialog_button"
                 android:text="@string/ok"
                 android:layout_width="match_parent"
-                android:id="@+id/dr_qd" />
+                android:id="@+id/bt_ok" />
 
         </LinearLayout>
 

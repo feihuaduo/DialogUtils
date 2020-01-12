@@ -58,7 +58,7 @@
 					android:layout_height="wrap_content"
 					android:layout_width="wrap_content"
 					android:text="Text"
-					android:id="@+id/du_version_name"/>
+					android:id="@+id/tv_version_name"/>
 
 			</LinearLayout>
 
@@ -93,7 +93,7 @@
 				android:text="确定"
 				android:layout_width="0dp"
 				android:layout_weight="1"
-				android:id="@+id/du_qd"
+				android:id="@+id/bt_ok"
 				style="@style/dialog_button"/>
 
 			<View
@@ -106,7 +106,7 @@
 				android:text="取消"
 				android:layout_width="0dp"
 				android:layout_weight="1"
-				android:id="@+id/du_qx"/>
+				android:id="@+id/bt_cancel"/>
 
 		</LinearLayout>
 

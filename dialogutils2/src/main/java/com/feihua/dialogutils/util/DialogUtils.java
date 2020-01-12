@@ -99,7 +99,7 @@ public class DialogUtils {
 
     private static DialogUtils getDu(Context con) {
         for (DialogUtils du : contexts) {
-            if (du.getContext().equals(con)) {
+            if (du.getContext().getClass().equals(con.getClass())) {
                 return du;
             }
         }
@@ -112,7 +112,7 @@ public class DialogUtils {
 
     //关闭Dialog
     public void dis() {
-        if (builder.isShowing())
+        if (builder!=null&&builder.isShowing())
             builder.dismiss();
     }
 
@@ -124,13 +124,15 @@ public class DialogUtils {
             builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
         Window window = builder.getWindow();
-        if (window != null)
+        if (window != null) {
             if (context instanceof Service) {
                 window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
             } else {
                 window.setType(WindowManager.LayoutParams.TYPE_APPLICATION);
             }
-        builder.show();
+            if (ContextUtil.isContextExisted(context))
+                builder.show();
+        }
     }
 
     /*
@@ -306,11 +308,11 @@ public class DialogUtils {
         viewDialog = initDialog(context, R.layout.dialog_rec);
         tv_title = (TextView) viewDialog.findViewById(R.id.tv_title);
         RecyclerView dr_rec = (RecyclerView) viewDialog.findViewById(R.id.dr_rec);
-        Button dr_qd = (Button) viewDialog.findViewById(R.id.dr_qd);
+        Button bt_ok = (Button) viewDialog.findViewById(R.id.bt_ok);
         initTitle(title);
         dr_rec.setLayoutManager(layout);
         dr_rec.setAdapter(adp);
-        dr_qd.setOnClickListener(new View.OnClickListener() {
+        bt_ok.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View p1) {
@@ -319,7 +321,7 @@ public class DialogUtils {
         });
 
         v[0] = dr_rec;
-        v[1] = dr_qd;
+        v[1] = bt_ok;
         setCanceledOnTouchOutside(true);
         return v;
     }
@@ -331,14 +333,14 @@ public class DialogUtils {
         viewDialog = initDialog(context, R.layout.dialog_grid);
         tv_title = (TextView) viewDialog.findViewById(R.id.tv_title);
         GridView dt_grid = (GridView) viewDialog.findViewById(R.id.dt_grid);
-        Button dt_qd = (Button) viewDialog.findViewById(R.id.dt_qd);
+        Button bt_ok = (Button) viewDialog.findViewById(R.id.bt_ok);
         initTitle(title);
         dt_grid.setNumColumns(numColumns);
         dt_grid.setAdapter(adp);
 
 
         v[0] = dt_grid;
-        v[1] = dt_qd;
+        v[1] = bt_ok;
         setCanceledOnTouchOutside(true);
         return v;
     }
@@ -358,7 +360,7 @@ public class DialogUtils {
 
     //listview对话框
     public ListView dialogl(String title, final String[] data) {
-        return dialogl(title, data, 8, 8, 8, 8);
+        return dialogl(title, data, 16, 16, 16, 16);
     }
 
     //listview对话框
@@ -476,10 +478,10 @@ public class DialogUtils {
         viewDialog = initDialog(context, R.layout.dialog_toast1);
         tv_title = (TextView) viewDialog.findViewById(R.id.tv_title);
         tv_toast_message = (TextView) viewDialog.findViewById(R.id.dt_ts);
-        Button dt_qd = (Button) viewDialog.findViewById(R.id.dt_qd);
+        Button bt_ok = (Button) viewDialog.findViewById(R.id.bt_ok);
         initTitle(title);
         tv_toast_message.setText(message);
-        dt_qd.setOnClickListener(new View.OnClickListener() {
+        bt_ok.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View p1) {
@@ -487,7 +489,7 @@ public class DialogUtils {
             }
         });
         setCanceledOnTouchOutside(true);
-        return dt_qd;
+        return bt_ok;
     }
 
     //双按钮提示对话框
@@ -497,12 +499,12 @@ public class DialogUtils {
         viewDialog = initDialog(context, R.layout.dialog_toast);
         tv_title = (TextView) viewDialog.findViewById(R.id.tv_title);
         tv_toast_message = (TextView) viewDialog.findViewById(R.id.dt_ts);
-        Button dt_qd = (Button) viewDialog.findViewById(R.id.dt_qd);
+        Button bt_ok = (Button) viewDialog.findViewById(R.id.bt_ok);
         Button dt_qx = (Button) viewDialog.findViewById(R.id.dt_qx);
         initTitle(title);
         tv_toast_message.setText(message);
         v[0] = dt_qx;
-        v[1] = dt_qd;
+        v[1] = bt_ok;
         setCanceledOnTouchOutside(true);
         return v;
     }
@@ -515,10 +517,10 @@ public class DialogUtils {
         View[] vv = new View[2];
         viewDialog = initDialog(context, R.layout.dialog_update_log);
         tv_title = (TextView) viewDialog.findViewById(R.id.tv_title);
-        ListView du_list = (ListView) viewDialog.findViewById(R.id.duu_list);
-        Button du_qd = (Button) viewDialog.findViewById(R.id.duu_qd);
+        ListView lv_list = (ListView) viewDialog.findViewById(R.id.duu_list);
+        Button bt_ok = (Button) viewDialog.findViewById(R.id.duu_qd);
         initTitle(title);
-        du_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        lv_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4) {
@@ -528,7 +530,7 @@ public class DialogUtils {
                 return true;
             }
         });
-        du_list.setAdapter(new BaseAdapter() {
+        lv_list.setAdapter(new BaseAdapter() {
 
             ViewHolder zujian;
 
@@ -572,8 +574,8 @@ public class DialogUtils {
         });
 
         setCanceledOnTouchOutside(true);
-        vv[0] = du_list;
-        vv[1] = du_qd;
+        vv[0] = lv_list;
+        vv[1] = bt_ok;
         return vv;
 
     }
@@ -583,17 +585,17 @@ public class DialogUtils {
 
         View[] v = new View[2];
         viewDialog = initDialog(context, R.layout.dialog_app_update);
-        Button du_qd = (Button) viewDialog.findViewById(R.id.du_qd);
-        Button du_qx = (Button) viewDialog.findViewById(R.id.du_qx);
-        TextView du_version = (TextView) viewDialog.findViewById(R.id.du_version_name);
+        Button bt_ok = (Button) viewDialog.findViewById(R.id.bt_ok);
+        Button bt_cancel = (Button) viewDialog.findViewById(R.id.bt_cancel);
+        TextView tv_version = (TextView) viewDialog.findViewById(R.id.tv_version_name);
         TextView du_update_message = (TextView) viewDialog.findViewById(R.id.du_update_message);
 
-        du_version.setText(version);
+        tv_version.setText(version);
         du_update_message.setText(message);
 
 
-        v[0] = du_qx;
-        v[1] = du_qd;
+        v[0] = bt_cancel;
+        v[1] = bt_ok;
         setCanceledOnTouchOutside(false);
         return v;
     }
