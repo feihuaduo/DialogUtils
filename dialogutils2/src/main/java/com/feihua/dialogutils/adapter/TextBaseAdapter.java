@@ -23,7 +23,7 @@ public class TextBaseAdapter extends BaseAdapter {
     private int topPadding;
     private int bottomPadding;
 
-    public TextBaseAdapter(Context context, String[] data, int leftPadding, int rightPadding, int topPadding, int bottomPadding) {
+    public TextBaseAdapter(Context context, String[] data, int leftPadding, int topPadding,  int rightPadding,int bottomPadding) {
         this.context = context;
         this.data = data;
         this.leftPadding = leftPadding;
