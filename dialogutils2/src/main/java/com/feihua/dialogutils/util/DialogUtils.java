@@ -7,9 +7,11 @@ import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -741,8 +743,16 @@ public class DialogUtils {
     }
 
     //设置对话框是否能被返回键或者触控屏幕关闭
-    public void setCanceledOnTouchOutside(boolean cancel) {
+    public void setCanceledOnTouchOutside(final boolean cancel) {
         builder.setCanceledOnTouchOutside(cancel);
+        getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode==KeyEvent.KEYCODE_BACK&&!cancel)
+                    return true;
+                return false;
+            }
+        });
     }
 
     public void setMessage(String message) {
