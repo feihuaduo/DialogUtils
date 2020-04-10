@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.feihua.dialogutils"
         minSdkVersion 15
-        targetSdkVersion 28
+        targetSdkVersion 21
         versionCode 1
-        versionName "1.8.9.1"
+        versionName "1.8.9.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
