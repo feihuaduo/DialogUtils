@@ -158,7 +158,7 @@ public class DialogUtils {
         if (context instanceof Activity) {
             Activity a = (Activity) context;
             Display display = a.getWindowManager().getDefaultDisplay();
-            Point point=new Point();
+            Point point = new Point();
             display.getSize(point);
             width = Math.min(point.x, point.y);
         } else {
@@ -537,7 +537,7 @@ public class DialogUtils {
             @Override
             public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4) {
                 ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                cmb.setPrimaryClip( ClipData.newPlainText(null,data.get(p3).getVersion() + "\n" + data.get(p3).getMessage()));
+                cmb.setPrimaryClip(ClipData.newPlainText(null, data.get(p3).getVersion() + "\n" + data.get(p3).getMessage()));
                 Toast.makeText(context, "已复制到剪贴板", Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -617,9 +617,14 @@ public class DialogUtils {
      *layoutId layout的id
      */
     public View dialogBottomSheet(int layoutId) {
-        builder = new BottomSheetDialog(context,R.style.dialog);
+        builder = new BottomSheetDialog(context);
+
         View view = LayoutInflater.from(context).inflate(layoutId, null);
         builder.setContentView(view);
+        Window window = builder.getWindow();
+        if (window!=null)
+        window.findViewById(R.id.design_bottom_sheet)
+                .setBackgroundResource(android.R.color.transparent);
         builder.show();
         return view;
     }
@@ -633,9 +638,13 @@ public class DialogUtils {
 
         final IconTextItem it = new IconTextItem();
 
-        builder = new BottomSheetDialog(context,R.style.dialog);
+        builder = new BottomSheetDialog(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet_list, null);
         builder.setContentView(view);
+        Window window = builder.getWindow();
+        if (window!=null)
+            window.findViewById(R.id.design_bottom_sheet)
+                    .setBackgroundResource(android.R.color.transparent);
         builder.show();
 
         List<ItemData> data = new ArrayList<>();
@@ -670,9 +679,13 @@ public class DialogUtils {
 
         final IconTextItem it = new IconTextItem();
 
-        builder = new BottomSheetDialog(context,R.style.dialog);
+        builder = new BottomSheetDialog(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet_list, null);
         builder.setContentView(view);
+        Window window = builder.getWindow();
+        if (window!=null)
+            window.findViewById(R.id.design_bottom_sheet)
+                    .setBackgroundResource(android.R.color.transparent);
         builder.show();
 
         RecyclerView rv_new_file_list = view.findViewById(R.id.rv_list);
@@ -751,7 +764,7 @@ public class DialogUtils {
         getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode==KeyEvent.KEYCODE_BACK&&!cancel)
+                if (keyCode == KeyEvent.KEYCODE_BACK && !cancel)
                     return true;
                 return false;
             }
