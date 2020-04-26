@@ -1,60 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-	
-<androidx.cardview.widget.CardView
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	app:cardCornerRadius="@dimen/dialog_corner_radius"
-	app:elevation="15dp"
-	app:cardBackgroundColor="@color/colorDialogBackground">
-	
-<LinearLayout
-		android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	>
 
-	<include
-		layout="@layout/dialog_title"/>
-	
-	<LinearLayout
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:orientation="horizontal"
-		android:layout_marginTop="10dp"
-		android:layout_marginBottom="10dp">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/dialog_corner_radius"
+    app:elevation="15dp"
+    app:cardBackgroundColor="@color/colorDialogBackground">
 
-		<ProgressBar
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:layout_marginLeft="30dp"
-			android:layout_gravity="center_vertical"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-		<TextView
-			android:layout_height="wrap_content"
-			android:text="正在加载中,请稍等"
-			android:layout_width="wrap_content"
-			android:layout_gravity="center_vertical"
-			android:textColor="#000000"
-			android:textSize="20sp"
-			android:layout_marginLeft="10dp"
-			android:layout_marginRight="10dp"
-			android:id="@+id/tv_toast_message"/>
+        <include layout="@layout/dialog_title" />
 
-	</LinearLayout>
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
 
-	<View
-		android:layout_height="1dp"
-		android:layout_width="match_parent"
-		android:background="@color/colorDivider"/>
+            <ProgressBar
+				style="@style/progressBarStyle"
+                android:layout_height="@dimen/dialog_progress_bar_size"
+                android:layout_width="@dimen/dialog_progress_bar_size"
+                android:layout_marginLeft="@dimen/dialog_progress_bar_margin_Left"
+                android:layout_gravity="center_vertical" />
 
-	<androidx.appcompat.widget.AppCompatButton
-		style="@style/dialog_button"
-		android:text="取消"
-		android:layout_width="match_parent"
-		android:id="@+id/dj_qx"
-		android:textColor="#008CF9"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="正在加载中,请稍等"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/tv_toast_message" />
 
-</LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="@color/colorDivider" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/dialog_button"
+            android:text="取消"
+            android:layout_width="match_parent"
+			android:gravity="center"
+            android:id="@+id/bt_cancel"
+            android:textColor="#008CF9" />
+
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

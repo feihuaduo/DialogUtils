@@ -8,6 +8,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Point;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -71,9 +72,9 @@ public class DialogUtils {
      * @return 当前上下文的DialogUtiil对象
      */
     public static DialogUtils getInstance(Context context) {
-        DialogUtils dut = getDu(context);
-        if (dut != null) {
-            return dut;
+        DialogUtils dialogUtils = getDu(context);
+        if (dialogUtils != null) {
+            return dialogUtils;
         } else {
             DialogUtils du = new DialogUtils(context);
             contexts.add(du);
@@ -90,9 +91,9 @@ public class DialogUtils {
      */
     @Deprecated
     public static DialogUtils getdx(Context context) {
-        DialogUtils dut = getDu(context);
-        if (dut != null) {
-            return dut;
+        DialogUtils dialogUtils = getDu(context);
+        if (dialogUtils != null) {
+            return dialogUtils;
         } else {
             DialogUtils du = new DialogUtils(context);
             contexts.add(du);
@@ -157,9 +158,11 @@ public class DialogUtils {
         if (context instanceof Activity) {
             Activity a = (Activity) context;
             Display display = a.getWindowManager().getDefaultDisplay();
-            width = Math.min(display.getWidth(), display.getHeight());
+            Point point=new Point();
+            display.getSize(point);
+            width = Math.min(point.x, point.y);
         } else {
-            DisplayMetrics dm = new DisplayMetrics();
+            DisplayMetrics dm;
             Service se = (Service) context;
             dm = se.getResources().getDisplayMetrics();
             width = Math.min(dm.widthPixels, dm.heightPixels);
@@ -429,9 +432,9 @@ public class DialogUtils {
         viewDialog = initDialog(context, R.layout.dialog_jiazai);
         tv_title = viewDialog.findViewById(R.id.tv_title);
         tv_toast_message = viewDialog.findViewById(R.id.tv_toast_message);
-        Button dj_qx = viewDialog.findViewById(R.id.dj_qx);
+        Button bt_cancel = viewDialog.findViewById(R.id.bt_cancel);
         initTitle(title);
-        dj_qx.setOnClickListener(new View.OnClickListener() {
+        bt_cancel.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View p1) {
@@ -441,7 +444,7 @@ public class DialogUtils {
 
         tv_toast_message.setText(message);
         setCanceledOnTouchOutside(false);
-        return dj_qx;
+        return bt_cancel;
 
     }
 
@@ -614,7 +617,7 @@ public class DialogUtils {
      *layoutId layout的id
      */
     public View dialogBottomSheet(int layoutId) {
-        builder = new BottomSheetDialog(context);
+        builder = new BottomSheetDialog(context,R.style.dialog);
         View view = LayoutInflater.from(context).inflate(layoutId, null);
         builder.setContentView(view);
         builder.show();
@@ -630,7 +633,7 @@ public class DialogUtils {
 
         final IconTextItem it = new IconTextItem();
 
-        builder = new BottomSheetDialog(context);
+        builder = new BottomSheetDialog(context,R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet_list, null);
         builder.setContentView(view);
         builder.show();
@@ -667,7 +670,7 @@ public class DialogUtils {
 
         final IconTextItem it = new IconTextItem();
 
-        builder = new BottomSheetDialog(context);
+        builder = new BottomSheetDialog(context,R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet_list, null);
         builder.setContentView(view);
         builder.show();

@@ -30,7 +30,8 @@
 	</style>
 
 	<style name="progressBarStyle">
-
+		<item name="android:indeterminateTintMode">src_atop</item>
+		<item name="android:indeterminateTint">@color/colorAccent</item>
 	</style>
-	
+
 </resources>
