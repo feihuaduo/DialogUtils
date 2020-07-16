@@ -6,7 +6,7 @@
 	android:orientation="horizontal"
 	android:gravity="center">
 
-	<TextView
+	<androidx.appcompat.widget.AppCompatTextView
 		android:layout_height="match_parent"
 		android:layout_width="0dp"
 		android:text="Text"

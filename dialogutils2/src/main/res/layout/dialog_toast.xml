@@ -19,16 +19,17 @@
 			
 		
 
-			<ScrollView
+			<androidx.core.widget.NestedScrollView
 				android:layout_weight="1000"
 				android:layout_marginLeft="10dp"
 				android:layout_marginRight="10dp"
 				android:layout_marginBottom="15dp"
 				android:layout_marginTop="10dp"
 				android:layout_height="wrap_content"
-				android:layout_width="wrap_content">
+				android:layout_width="match_parent">
 
-				<TextView
+				<androidx.appcompat.widget.AppCompatTextView
+					android:gravity="center"
 					android:textStyle="bold"
 					android:textIsSelectable="true"
 					android:autoLink="email|phone|web"
@@ -39,7 +40,7 @@
 					android:textSize="@dimen/dialog_message_size"
 					android:id="@+id/dt_ts"/>
 
-			</ScrollView>
+			</androidx.core.widget.NestedScrollView>
 
 		<View
 			android:layout_height="1dp"

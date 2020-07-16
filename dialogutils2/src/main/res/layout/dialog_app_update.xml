@@ -20,7 +20,7 @@
 			android:orientation="vertical"
 			android:gravity="center">
 
-			<TextView
+			<androidx.appcompat.widget.AppCompatTextView
 				android:textIsSelectable="true"
 				android:layout_height="wrap_content"
 				android:text="有新版本啦~"
@@ -49,12 +49,12 @@
 				android:orientation="horizontal"
 				android:layout_margin="10dp">
 
-				<TextView
+				<androidx.appcompat.widget.AppCompatTextView
 					android:layout_height="wrap_content"
 					android:layout_width="wrap_content"
 					android:text="版本号："/>
 
-				<TextView
+				<androidx.appcompat.widget.AppCompatTextView
 					android:layout_height="wrap_content"
 					android:layout_width="wrap_content"
 					android:text="Text"
@@ -62,13 +62,13 @@
 
 			</LinearLayout>
 
-			<TextView
+			<androidx.appcompat.widget.AppCompatTextView
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
 				android:text="更新内容："
 				android:layout_marginLeft="10dp"/>
 
-			<TextView
+			<androidx.appcompat.widget.AppCompatTextView
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
 				android:text="Text"

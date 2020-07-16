@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.androidx.appcompat.widget.AppCompatTextView;
 
 import com.feihua.dialogutils.R;
 import com.feihua.dialogutils.base.OnITItemClickListener;
@@ -73,13 +73,13 @@ public class IconTextRecyclerViewAdapter extends RecyclerView.Adapter<IconTextRe
 	}
 	
 	class ViewHolder extends RecyclerView.ViewHolder{
-		TextView tv_name;
+		androidx.appcompat.widget.AppCompatTextView tv_name;
 		ImageView iv_icon;
 		View v;
 		ViewHolder(View v){
 			super(v);
 			this.v=v;
-			tv_name=(TextView) v.findViewById(R.id.tv_name);
+			tv_name=(androidx.appcompat.widget.AppCompatTextView) v.findViewById(R.id.tv_name);
 			iv_icon=(ImageView) v.findViewById(R.id.iv_icon);
 		}
 	}

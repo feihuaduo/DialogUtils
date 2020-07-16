@@ -12,7 +12,7 @@
 		android:orientation="vertical"
 		android:layout_margin="10dp">
 
-		<TextView
+		<androidx.appcompat.widget.AppCompatTextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="Text"
@@ -20,7 +20,7 @@
 			android:textColor="@color/colorAccent"
 			android:id="@+id/upda_vosin"/>
 
-		<TextView
+		<androidx.appcompat.widget.AppCompatTextView
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
 			android:text="Text"

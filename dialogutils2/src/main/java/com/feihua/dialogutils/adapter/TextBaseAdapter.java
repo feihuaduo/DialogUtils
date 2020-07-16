@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
 import com.feihua.dialogutils.R;
@@ -51,7 +51,7 @@ public class TextBaseAdapter extends BaseAdapter {
 
     @Override
     public View getView(int p1, View p2, ViewGroup p3) {
-        TextView t = new TextView(context);
+        AppCompatTextView t = new AppCompatTextView(context);
         t.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
         t.setText(data[p1]);//p1为对应的数组下标
         t.setTextSize(20);

@@ -17,7 +17,7 @@
         <include layout="@layout/dialog_title" />
 
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -26,7 +26,7 @@
             android:layout_marginBottom="15dp"
             android:layout_weight="1000">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/di_ts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <ImageView
             android:id="@+id/di_image"
