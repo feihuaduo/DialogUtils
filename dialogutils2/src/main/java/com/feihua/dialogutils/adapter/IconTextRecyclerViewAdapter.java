@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.androidx.appcompat.widget.AppCompatTextView;
 
 import com.feihua.dialogutils.R;
 import com.feihua.dialogutils.base.OnITItemClickListener;
