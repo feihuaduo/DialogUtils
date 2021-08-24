@@ -6,13 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.feihua.dialogutils.R;
+
+
 import com.feihua.dialogutils.base.OnITItemClickListener;
 import com.feihua.dialogutils.bean.ItemData;
 
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.feihua.dialogutils.R;
 
 public class IconTextRecyclerViewAdapter extends RecyclerView.Adapter<IconTextRecyclerViewAdapter.ViewHolder>
 {

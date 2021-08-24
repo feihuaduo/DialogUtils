@@ -1,38 +1,48 @@
 package com.feihua.dialogutils.bean;
 
-public class ItemData{
-	private int icon;
-	private String name;
+public class ItemData {
+    private int icon;
+    private String name;
+    private int id;
 
-	public void setName(String name){
-		this.name=name;
-	}
+    public static ItemData toItemData(int icon, String name) {
+        return ItemData.toItemData(0,-1, name);
+    }
 
-	public String getName(){
-		return name;
-	}
+    public static ItemData toItemData( int id,int icon, String name) {
+        ItemData ul = new ItemData();
+        ul.setIcon(icon);
+        ul.setName(name);
+        ul.setId(id);
+        return ul;
+    }
 
+    public static ItemData toItemData(String name) {
+        return ItemData.toItemData(-1, name);
+    }
 
-	public void setIcon(int icon){
-		this.icon=icon;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public int getIcon(){
-		return icon;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public static ItemData toItemData(int icon,String name){
-		ItemData ul=new ItemData();
-		ul.setIcon(icon);
-		ul.setName(name);
-		return ul;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public static ItemData toItemData(String name){
-		ItemData ul=new ItemData();
-		ul.setIcon(-1);
-		ul.setName(name);
-		return ul;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
 
 }

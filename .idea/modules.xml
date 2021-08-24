@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DialogUtils.iml" filepath="$PROJECT_DIR$/DialogUtils.iml" group="DialogUtils" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="DialogUtils/app" />
-      <module fileurl="file://$PROJECT_DIR$/dialogutils2/dialogutils2.iml" filepath="$PROJECT_DIR$/dialogutils2/dialogutils2.iml" group="DialogUtils/dialogutils2" />
+      <module fileurl="file://$PROJECT_DIR$/DialogUtils.iml" filepath="$PROJECT_DIR$/DialogUtils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DialogUtils.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DialogUtils.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dialogutils2/DialogUtils.dialogutils2.iml" filepath="$PROJECT_DIR$/.idea/modules/dialogutils2/DialogUtils.dialogutils2.iml" />
     </modules>
   </component>
 </project>

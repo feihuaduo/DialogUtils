@@ -7,8 +7,8 @@ import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -25,12 +25,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,10 +59,13 @@ public class DialogUtils {
     //对话框中提示内容
     private TextView tv_toast_message;
     private TextView tv_title;
+    private CardView cv_card;
+    private LinearLayout ll_background;
     //对话框对象
     private Dialog builder;
     private Context context;
     private View viewDialog;
+    private Button bt_ok, bt_cancel;
 
     private DialogUtils(Context context) {
         this.context = context;
@@ -192,6 +198,7 @@ public class DialogUtils {
         Button bt_cancel = viewDialog.findViewById(R.id.bt_cancel);
         ListView lv_list = viewDialog.findViewById(R.id.lv_list);
         initTitle(title);
+        initDialogBackground(viewDialog);
         final SelectAdapter sa = new SelectAdapter(context, data, positions);
         lv_list.setAdapter(sa);
         if (positions.size() != 0) {
@@ -265,6 +272,7 @@ public class DialogUtils {
         ListView lv_list = viewDialog.findViewById(R.id.lv_list);
 
         initTitle(title);
+        initDialogBackground(viewDialog);
         final List<Integer> po = new ArrayList<>();
         po.add(position);
         final SelectAdapter sa = new SelectAdapter(context, data, po);
@@ -322,6 +330,7 @@ public class DialogUtils {
         RecyclerView dr_rec = viewDialog.findViewById(R.id.dr_rec);
         Button bt_ok = viewDialog.findViewById(R.id.bt_ok);
         initTitle(title);
+        initDialogBackground(viewDialog);
         dr_rec.setLayoutManager(layout);
         dr_rec.setAdapter(adp);
         bt_ok.setOnClickListener(new View.OnClickListener() {
@@ -347,6 +356,7 @@ public class DialogUtils {
         GridView dt_grid = viewDialog.findViewById(R.id.dt_grid);
         Button bt_ok = viewDialog.findViewById(R.id.bt_ok);
         initTitle(title);
+        initDialogBackground(viewDialog);
         dt_grid.setNumColumns(numColumns);
         dt_grid.setAdapter(adp);
 
@@ -364,6 +374,7 @@ public class DialogUtils {
         tv_title = viewDialog.findViewById(R.id.tv_title);
         ListView lv_list = viewDialog.findViewById(R.id.lv_list);
         initTitle(title);
+        initDialogBackground(viewDialog);
         lv_list.setAdapter(badp);
 
         setCanceledOnTouchOutside(true);
@@ -382,6 +393,7 @@ public class DialogUtils {
         tv_title = viewDialog.findViewById(R.id.tv_title);
         ListView lv_list = viewDialog.findViewById(R.id.lv_list);
         initTitle(title);
+        initDialogBackground(viewDialog);
         BaseAdapter b = new TextBaseAdapter(context, data, leftPadding, topPadding, rightPadding, bottomPadding);
         lv_list.setAdapter(b);
 
@@ -397,30 +409,22 @@ public class DialogUtils {
         viewDialog = initDialog(context, R.layout.dialog_edit);
         tv_title = viewDialog.findViewById(R.id.tv_title);
         final EditText et_edit = viewDialog.findViewById(R.id.et_edit);
-        Button bt_ok = viewDialog.findViewById(R.id.bt_ok);
+        bt_ok = viewDialog.findViewById(R.id.bt_ok);
         initTitle(title);
+        initDialogBackground(viewDialog);
         et_edit.setHint(hint);
-        bt_ok.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View p1) {
-                dis();
-            }
-        });
+        bt_ok.setOnClickListener(p1 -> dis());
 
         v[0] = et_edit;
         v[1] = bt_ok;
         setCanceledOnTouchOutside(true);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                et_edit.requestFocus();
-                InputMethodManager imm = (InputMethodManager) et_edit.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                // imm.showSoftInput(v,InputMethodManager.SHOW_FORCED);
+        new Handler().postDelayed(() -> {
+            et_edit.requestFocus();
+            InputMethodManager imm = (InputMethodManager) et_edit.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            // imm.showSoftInput(v,InputMethodManager.SHOW_FORCED);
 
-                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
-            }
         }, 100);
         return v;
 
@@ -434,6 +438,7 @@ public class DialogUtils {
         tv_toast_message = viewDialog.findViewById(R.id.tv_toast_message);
         Button bt_cancel = viewDialog.findViewById(R.id.bt_cancel);
         initTitle(title);
+        initDialogBackground(viewDialog);
         bt_cancel.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -455,6 +460,7 @@ public class DialogUtils {
         tv_title = viewDialog.findViewById(R.id.tv_title);
         tv_toast_message = viewDialog.findViewById(R.id.tv_toast_message);
         initTitle(title);
+        initDialogBackground(viewDialog);
         tv_toast_message.setText(message);
         setCanceledOnTouchOutside(false);
     }
@@ -470,14 +476,9 @@ public class DialogUtils {
         di_image.setImageResource(drawableId);
         Button di_qd = viewDialog.findViewById(R.id.di_qd);
         initTitle(title);
+        initDialogBackground(viewDialog);
         tv_toast_message.setText(message);
-        di_qd.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View p1) {
-                dis();
-            }
-        });
+        di_qd.setOnClickListener(p1 -> dis());
 
         v[0] = di_qd;
         setCanceledOnTouchOutside(true);
@@ -490,16 +491,11 @@ public class DialogUtils {
         viewDialog = initDialog(context, R.layout.dialog_toast1);
         tv_title = viewDialog.findViewById(R.id.tv_title);
         tv_toast_message = viewDialog.findViewById(R.id.dt_ts);
-        Button bt_ok = viewDialog.findViewById(R.id.bt_ok);
+        bt_ok = viewDialog.findViewById(R.id.bt_ok);
         initTitle(title);
+        initDialogBackground(viewDialog);
         tv_toast_message.setText(message);
-        bt_ok.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View p1) {
-                dis();
-            }
-        });
+        bt_ok.setOnClickListener(p1 -> dis());
         setCanceledOnTouchOutside(true);
         return bt_ok;
     }
@@ -511,11 +507,12 @@ public class DialogUtils {
         viewDialog = initDialog(context, R.layout.dialog_toast);
         tv_title = viewDialog.findViewById(R.id.tv_title);
         tv_toast_message = viewDialog.findViewById(R.id.dt_ts);
-        Button bt_ok = viewDialog.findViewById(R.id.bt_ok);
-        Button dt_qx = viewDialog.findViewById(R.id.dt_qx);
+        bt_ok = viewDialog.findViewById(R.id.bt_ok);
+        bt_cancel = viewDialog.findViewById(R.id.dt_qx);
         initTitle(title);
+        initDialogBackground(viewDialog);
         tv_toast_message.setText(message);
-        v[0] = dt_qx;
+        v[0] = bt_cancel;
         v[1] = bt_ok;
         setCanceledOnTouchOutside(true);
         return v;
@@ -532,15 +529,12 @@ public class DialogUtils {
         ListView lv_list = viewDialog.findViewById(R.id.duu_list);
         Button bt_ok = viewDialog.findViewById(R.id.duu_qd);
         initTitle(title);
-        lv_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-            @Override
-            public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4) {
-                ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                cmb.setPrimaryClip(ClipData.newPlainText(null, data.get(p3).getVersion() + "\n" + data.get(p3).getMessage()));
-                Toast.makeText(context, "已复制到剪贴板", Toast.LENGTH_SHORT).show();
-                return true;
-            }
+        initDialogBackground(viewDialog);
+        lv_list.setOnItemLongClickListener((p1, p2, p3, p4) -> {
+            ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            cmb.setPrimaryClip(ClipData.newPlainText(null, data.get(p3).getVersion() + "\n" + data.get(p3).getMessage()));
+            Toast.makeText(context, "已复制到剪贴板", Toast.LENGTH_SHORT).show();
+            return true;
         });
         lv_list.setAdapter(new BaseAdapter() {
 
@@ -602,6 +596,8 @@ public class DialogUtils {
         TextView tv_version = viewDialog.findViewById(R.id.tv_version_name);
         TextView du_update_message = viewDialog.findViewById(R.id.du_update_message);
 
+        initDialogBackground(viewDialog);
+
         tv_version.setText(version);
         du_update_message.setText(message);
 
@@ -622,9 +618,9 @@ public class DialogUtils {
         View view = LayoutInflater.from(context).inflate(layoutId, null);
         builder.setContentView(view);
         Window window = builder.getWindow();
-        if (window!=null)
-        window.findViewById(R.id.design_bottom_sheet)
-                .setBackgroundResource(android.R.color.transparent);
+        if (window != null)
+            window.findViewById(R.id.design_bottom_sheet)
+                    .setBackgroundResource(android.R.color.transparent);
         builder.show();
         return view;
     }
@@ -642,7 +638,7 @@ public class DialogUtils {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet_list, null);
         builder.setContentView(view);
         Window window = builder.getWindow();
-        if (window!=null)
+        if (window != null)
             window.findViewById(R.id.design_bottom_sheet)
                     .setBackgroundResource(android.R.color.transparent);
         builder.show();
@@ -654,16 +650,13 @@ public class DialogUtils {
         RecyclerView rv_new_file_list = view.findViewById(R.id.rv_list);
         tv_title = view.findViewById(R.id.tv_title);
         initTitle(title);
+        initDialogBackground(viewDialog);
         rv_new_file_list.setLayoutManager(new LinearLayoutManager(context));
         IconTextRecyclerViewAdapter nFAdp = new IconTextRecyclerViewAdapter(data, false);
         rv_new_file_list.setAdapter(nFAdp);
-        nFAdp.setOnITItemClickListener(new OnITItemClickListener() {
-
-            @Override
-            public void onItemClick(int position) {
-                if (it.onITItemClickListener != null) {
-                    it.onITItemClickListener.onItemClick(position);
-                }
+        nFAdp.setOnITItemClickListener(position -> {
+            if (it.onITItemClickListener != null) {
+                it.onITItemClickListener.onItemClick(position);
             }
         });
         return it;
@@ -683,7 +676,7 @@ public class DialogUtils {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet_list, null);
         builder.setContentView(view);
         Window window = builder.getWindow();
-        if (window!=null)
+        if (window != null)
             window.findViewById(R.id.design_bottom_sheet)
                     .setBackgroundResource(android.R.color.transparent);
         builder.show();
@@ -691,6 +684,7 @@ public class DialogUtils {
         RecyclerView rv_new_file_list = view.findViewById(R.id.rv_list);
         tv_title = view.findViewById(R.id.tv_title);
         initTitle(title);
+        initDialogBackground(viewDialog);
         rv_new_file_list.setLayoutManager(new LinearLayoutManager(context));
         IconTextRecyclerViewAdapter nFAdp = new IconTextRecyclerViewAdapter(data, isShowIcon);
         rv_new_file_list.setAdapter(nFAdp);
@@ -717,6 +711,7 @@ public class DialogUtils {
         SeekBar ds_sb = viewDialog.findViewById(R.id.ds_sb);
         Button bt_ok = viewDialog.findViewById(R.id.bt_ok);
         initTitle(title);
+        initDialogBackground(viewDialog);
         ds_sb.setMax(max);
         ds_sb.setProgress(progress);
         bt_ok.setOnClickListener(new View.OnClickListener() {
@@ -758,16 +753,71 @@ public class DialogUtils {
         }
     }
 
+
+    private void initDialogBackground(View viewDialog) {
+        cv_card = viewDialog.findViewById(R.id.cv_card);
+        ll_background = viewDialog.findViewById(R.id.ll_background);
+    }
+
+    public void setDialogBackground(Drawable drawable) {
+        if (ll_background != null) {
+            ll_background.setBackgroundDrawable(drawable);
+            if (cv_card != null)
+                cv_card.setCardBackgroundColor(c(R.color.transparent));
+            if (bt_ok != null)
+                bt_ok.setBackgroundResource(R.drawable.click_transparent_background);
+            if (bt_cancel != null)
+                bt_cancel.setBackgroundResource(R.drawable.click_transparent_background);
+        }
+    }
+
+    public void setDialogBackgroundResource(int resource) {
+        if (ll_background != null) {
+            ll_background.setBackgroundResource(resource);
+            if (cv_card != null)
+                cv_card.setCardBackgroundColor(c(R.color.transparent));
+            if (bt_ok != null)
+                bt_ok.setBackgroundResource(R.drawable.click_transparent_background);
+            if (bt_cancel != null)
+                bt_cancel.setBackgroundResource(R.drawable.click_transparent_background);
+        }
+    }
+
+    public void setDialogBackgroundColor(int color) {
+        if (cv_card != null) {
+            cv_card.setCardBackgroundColor(color);
+            if (ll_background != null)
+                ll_background.setBackgroundColor(c(R.color.transparent));
+            if (bt_ok != null)
+                bt_ok.setBackgroundResource(R.drawable.click_transparent_background);
+            if (bt_cancel != null)
+                bt_cancel.setBackgroundResource(R.drawable.click_transparent_background);
+        }
+    }
+
+    public void setDialogBackgroundDefault() {
+        if (ll_background != null)
+            ll_background.setBackgroundColor(c(R.color.transparent));
+        if (cv_card != null)
+            cv_card.setCardBackgroundColor(c(R.color.colorDialogBackground));
+        if (bt_ok != null)
+            bt_ok.setBackgroundResource(R.drawable.click_background);
+        if (bt_cancel != null)
+            bt_cancel.setBackgroundResource(R.drawable.click_background);
+    }
+
+
+    private int c(int color) {
+        return ContextCompat.getColor(context, color);
+    }
+
     //设置对话框是否能被返回键或者触控屏幕关闭
     public void setCanceledOnTouchOutside(final boolean cancel) {
         builder.setCanceledOnTouchOutside(cancel);
-        getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK && !cancel)
-                    return true;
-                return false;
-            }
+        getDialog().setOnKeyListener((dialog, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_BACK && !cancel)
+                return true;
+            return false;
         });
     }
 

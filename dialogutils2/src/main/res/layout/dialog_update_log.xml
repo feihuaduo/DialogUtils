@@ -1,46 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-	
-<androidx.cardview.widget.CardView
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	app:cardCornerRadius="@dimen/dialog_corner_radius"
-	app:elevation="15dp"
-	app:cardBackgroundColor="@color/colorDialogBackground">
-	
-<LinearLayout
-		android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	android:gravity="center">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_background"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-	<include
-		layout="@layout/dialog_title"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/dialog_corner_radius"
+        app:elevation="0dp"
+        app:cardElevation="0dp"
+        app:cardUseCompatPadding="false"
+        app:cardBackgroundColor="@color/colorDialogBackground">
 
-	<ListView
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:layout_weight="1000"
-		android:id="@+id/duu_list"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
 
-	<LinearLayout
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:orientation="vertical">
+            <include layout="@layout/dialog_title" />
 
-		<View
-			android:layout_height="1dp"
-			android:layout_width="match_parent"
-			android:background="#C6C6C6"/>
+            <ListView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_weight="1000"
+                android:id="@+id/duu_list" />
 
-		<androidx.appcompat.widget.AppCompatButton
-			style="@style/dialog_button"
-			android:text="确定"
-			android:layout_width="match_parent"
-			android:id="@+id/duu_qd"/>
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical">
 
-	</LinearLayout>
+                <View
+                    android:layout_height="1dp"
+                    android:layout_width="match_parent"
+                    android:background="#C6C6C6" />
 
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@style/dialog_button"
+                    android:text="确定"
+                    android:layout_width="match_parent"
+                    android:id="@+id/duu_qd" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>
-</androidx.cardview.widget.CardView>

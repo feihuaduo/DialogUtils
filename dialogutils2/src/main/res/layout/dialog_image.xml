@@ -1,68 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_background"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/colorDialogBackground"
-    app:cardCornerRadius="@dimen/dialog_corner_radius"
-    app:elevation="15dp">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_card"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <include layout="@layout/dialog_title" />
-
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="15dp"
-            android:layout_weight="1000">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/di_ts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="这是一个警告,我使用了警告警告菌泥嚎泥嚎你们"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-        </androidx.core.widget.NestedScrollView>
-
-        <ImageView
-            android:id="@+id/di_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp" />
+        app:cardCornerRadius="@dimen/dialog_corner_radius"
+        app:elevation="0dp"
+        app:cardElevation="0dp"
+        app:cardUseCompatPadding="false"
+        app:cardBackgroundColor="@color/colorDialogBackground">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorDivider" />
+            <include layout="@layout/dialog_title" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/di_qd"
-                style="@style/dialog_button"
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="15dp"
+                android:layout_weight="1000">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/di_ts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="这是一个警告,我使用了警告警告菌泥嚎泥嚎你们"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </androidx.core.widget.NestedScrollView>
+
+            <ImageView
+                android:id="@+id/di_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:text="确定" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorDivider" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/di_qd"
+                    style="@style/dialog_button"
+                    android:layout_width="match_parent"
+                    android:text="确定" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

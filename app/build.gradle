@@ -3,12 +3,12 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.feihua.dialogutils"
+        applicationId "com.test.feihua.dialogutils"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
-        versionName "1.8.9.8"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionName "1.8.9.9"
+        testInstrumentationRunner "android.support.com.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -16,16 +16,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+
 }
 
 dependencies {
 
-    api fileTree(dir: 'libs', include: ['*.jar'])
-
-    api 'junit:junit:4.12'
-
-    api 'androidx.appcompat:appcompat:1.1.0'
-    api 'com.google.android.material:material:1.1.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(path: ':dialogutils2')
+//    api "androidx.cardview:cardview:1.0.0"
+//    api 'junit:junit:4.12'
+//
+//    api 'androidx.appcompat:appcompat:1.1.0'
+//    api 'com.google.android.material:material:1.1.0'
     // implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
 
 }

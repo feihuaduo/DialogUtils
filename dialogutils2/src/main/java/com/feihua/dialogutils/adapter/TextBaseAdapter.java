@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat;
 
 import com.feihua.dialogutils.R;
 
-import java.util.List;
 
 public class TextBaseAdapter extends BaseAdapter {
 

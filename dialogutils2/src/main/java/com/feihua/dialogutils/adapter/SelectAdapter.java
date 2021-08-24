@@ -1,11 +1,16 @@
 package com.feihua.dialogutils.adapter;
 
-import android.content.*;
-import android.view.*;
-import android.widget.*;
-import java.util.*;
-import com.feihua.dialogutils.*;
-import com.feihua.dialogutils.view.*;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+
+import com.feihua.dialogutils.R;
+import com.feihua.dialogutils.view.Point;
+
+import java.util.List;
 
 public class SelectAdapter extends BaseAdapter
 {
@@ -46,9 +51,9 @@ public class SelectAdapter extends BaseAdapter
 	{
 		if(p2==null){
 			zujian=new Zujian();
-			p2=LayoutInflater.from(context).inflate(R.layout.item_select,null);
-			zujian.is_text=(androidx.appcompat.widget.AppCompatTextView)p2.findViewById(R.id.is_text);
-			zujian.is_point=(Point)p2.findViewById(R.id.is_point);
+			p2= LayoutInflater.from(context).inflate(R.layout.item_select,null);
+			zujian.is_text= p2.findViewById(R.id.is_text);
+			zujian.is_point= p2.findViewById(R.id.is_point);
 			p2.setTag(zujian);
 		}else{
 			zujian=(Zujian) p2.getTag();
