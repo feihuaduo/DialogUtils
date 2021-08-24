@@ -654,9 +654,12 @@ public class DialogUtils {
         rv_new_file_list.setLayoutManager(new LinearLayoutManager(context));
         IconTextRecyclerViewAdapter nFAdp = new IconTextRecyclerViewAdapter(data, false);
         rv_new_file_list.setAdapter(nFAdp);
-        nFAdp.setOnITItemClickListener(position -> {
-            if (it.onITItemClickListener != null) {
-                it.onITItemClickListener.onItemClick(position);
+        nFAdp.setOnITItemClickListener(new OnITItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                if (it.onITItemClickListener != null) {
+                    it.onITItemClickListener.onItemClick(position);
+                }
             }
         });
         return it;
