@@ -7,7 +7,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
-        versionName "1.8.9.10"
+        versionName "1.8.9.11"
         testInstrumentationRunner "android.support.com.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -16,10 +16,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+
 
 
 }
