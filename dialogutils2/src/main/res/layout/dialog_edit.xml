@@ -25,7 +25,6 @@
         <include layout="@layout/dialog_title" />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:text="message"
             android:textSize="15sp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

@@ -25,11 +25,11 @@
 			layout="@layout/dialog_title"/>
 
 		<androidx.core.widget.NestedScrollView
-			android:layout_marginBottom="15dp"
-			android:layout_marginTop="10dp"
-			android:layout_marginLeft="10dp"
-			android:layout_marginRight="10dp"
-			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/dialog_message_margin_bottom"
+			android:layout_marginTop="@dimen/dialog_message_margin_top"
+			android:layout_marginLeft="@dimen/dialog_message_margin_left"
+			android:layout_marginRight="@dimen/dialog_message_margin_right"
+			android:layout_height="0dp"
 			android:layout_width="wrap_content"
 			android:layout_weight="1000">
 

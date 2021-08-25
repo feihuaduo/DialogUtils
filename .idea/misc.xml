@@ -15,7 +15,7 @@
         <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/drawable/click_transparent_background.xml" value="0.2611111111111111" />
         <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/dialog_app_update.xml" value="0.3088803088803089" />
         <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/dialog_bottom_sheet_list.xml" value="0.264" />
-        <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/dialog_edit.xml" value="0.37094281298299847" />
+        <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/dialog_edit.xml" value="0.4" />
         <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/dialog_grid.xml" value="0.24947916666666667" />
         <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/dialog_image.xml" value="0.24947916666666667" />
         <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/dialog_jiazai.xml" value="0.4" />
@@ -25,7 +25,7 @@
         <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/dialog_seekbar.xml" value="0.24947916666666667" />
         <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/dialog_select.xml" value="0.24947916666666667" />
         <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/dialog_title.xml" value="0.24947916666666667" />
-        <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/dialog_toast.xml" value="0.4" />
+        <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/dialog_toast.xml" value="0.2" />
         <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/dialog_toast1.xml" value="0.24947916666666667" />
         <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/dialog_update_log.xml" value="0.24947916666666667" />
         <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/layout/icon_text_recycl_item.xml" value="0.24947916666666667" />

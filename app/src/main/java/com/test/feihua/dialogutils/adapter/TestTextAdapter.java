@@ -45,10 +45,10 @@ public class TestTextAdapter extends RecyclerView.Adapter<TestTextAdapter.ViewHo
         holder.view.setOnClickListener(v -> {
             switch (itemData.getId()){
                 case DialogRecord.TYPE_DIALOG_TOATS:
-                    dialogUtils.dialogt(itemData.getName(),"测试这是提示的内容");
+                    dialogUtils.dialogt("测试",itemData.getName());
                     break;
                 case DialogRecord.TYPE_DIALOG_TOATS_1:
-                    dialogUtils.dialogt1(itemData.getName(),"测试这是提示的内容");
+                    dialogUtils.dialogt1("测试",itemData.getName());
                     break;
                 case DialogRecord.TYPE_DIALOG_LOADING:
                     dialogUtils.dialogj(itemData.getName(),"测试这是提示的内容");
