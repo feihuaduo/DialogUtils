@@ -204,37 +204,23 @@ public class DialogUtils {
         if (positions.size() != 0) {
             lv_list.setSelection(positions.get(0));
         }
-        lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_list.setOnItemClickListener((p1, p2, p3, p4) -> {
 
-            @Override
-            public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
-
-                int position = conin(positions, p3);
-                if (position != -1) {
-                    removein(positions, position);
-                } else {
-                    positions.add(p3);
-                }
-                sa.notifyDataSetChanged();
-
+            int position = conin(positions, p3);
+            if (position != -1) {
+                removein(positions, position);
+            } else {
+                positions.add(p3);
             }
-        });
-        bt_cancel.setOnClickListener(new View.OnClickListener() {
+            sa.notifyDataSetChanged();
 
-            @Override
-            public void onClick(View p1) {
+        });
+        bt_cancel.setOnClickListener(p1 -> dis());
+        bt_ok.setOnClickListener(p1 -> {
+
+            if (se.onc != null) {
+                se.onc.OnCheckbox(data, positions);
                 dis();
-            }
-        });
-        bt_ok.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View p1) {
-
-                if (se.onc != null) {
-                    se.onc.OnCheckbox(data, positions);
-                    dis();
-                }
             }
         });
 
@@ -280,40 +266,26 @@ public class DialogUtils {
         if (position != -1) {
             lv_list.setSelection(position);
         }
-        lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
-                if (po.size() != 0) {
-                    if (po.get(0) != p3) {
-                        po.clear();
-                        po.add(p3);
-                    }
-                    sa.notifyDataSetChanged();
-                } else {
+        lv_list.setOnItemClickListener((p1, p2, p3, p4) -> {
+            if (po.size() != 0) {
+                if (po.get(0) != p3) {
+                    po.clear();
                     po.add(p3);
-                    sa.notifyDataSetChanged();
                 }
+                sa.notifyDataSetChanged();
+            } else {
+                po.add(p3);
+                sa.notifyDataSetChanged();
             }
         });
-        bt_cancel.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View p1) {
+        bt_cancel.setOnClickListener(p1 -> dis());
+        bt_ok.setOnClickListener(p1 -> {
+            if (po.size() != 0) {
                 dis();
-            }
-        });
-        bt_ok.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View p1) {
-                if (po.size() != 0) {
-                    dis();
-                    if (se.onr != null) {
-                        se.onr.onRadio(data, po.get(0));
-                    }
-
+                if (se.onr != null) {
+                    se.onr.onRadio(data, po.get(0));
                 }
+
             }
         });
 
@@ -717,13 +689,7 @@ public class DialogUtils {
         initDialogBackground(viewDialog);
         ds_sb.setMax(max);
         ds_sb.setProgress(progress);
-        bt_ok.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View p1) {
-                dis();
-            }
-        });
+        bt_ok.setOnClickListener(p1 -> dis());
         setCanceledOnTouchOutside(true);
         v[0] = ds_sb;
         v[1] = bt_ok;
