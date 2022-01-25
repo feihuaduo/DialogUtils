@@ -9,4 +9,5 @@ public class DialogRecord {
     public static final int TYPE_DIALOG_LOADING=2;
     public static final int TYPE_DIALOG_LOADING_1=3;
     public static final int TYPE_DIALOG_EDIT=4;
+    public static final int TYPE_DIALOG_BOTTOM=5;
 }

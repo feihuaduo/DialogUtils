@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -46,6 +45,7 @@ import com.feihua.dialogutils.base.listener.OnCheckboxListener;
 import com.feihua.dialogutils.base.listener.OnRadioListener;
 import com.feihua.dialogutils.bean.ItemData;
 import com.feihua.dialogutils.bean.UpdateLog;
+import com.feihua.dialogutils.view.FDialogBottomSheet;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
@@ -402,8 +402,12 @@ public class DialogUtils {
 
     }
 
-    //EditText对话框
     public View[] dialoge(String title, String hint) {
+       return dialoge(title, hint, "");
+    }
+
+    //EditText对话框
+    public View[] dialoge(String title, String hint, String message) {
 
         View[] v = new View[2];
         viewDialog = initDialog(context, R.layout.dialog_edit);
@@ -413,21 +417,20 @@ public class DialogUtils {
         initTitle(title);
         initDialogBackground(viewDialog);
         et_edit.setHint(hint);
+        et_edit.setHint(message);
         bt_ok.setOnClickListener(p1 -> dis());
 
         v[0] = et_edit;
         v[1] = bt_ok;
         setCanceledOnTouchOutside(true);
         new Handler().postDelayed(() -> {
-            et_edit.requestFocus();
-            InputMethodManager imm = (InputMethodManager) et_edit.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            // imm.showSoftInput(v,InputMethodManager.SHOW_FORCED);
-
-            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-
+            FUtil.showKeyboard(et_edit);
+            et_edit.setSelection(et_edit.getText().length());
         }, 100);
+        builder.setOnDismissListener(dialog -> {
+            FUtil.closeKeyboard(builder);
+        });
         return v;
-
     }
 
     //加载对话框
@@ -608,13 +611,16 @@ public class DialogUtils {
         return v;
     }
 
+    public View dialogBottomSheet(int layoutId) {
+        return dialogBottomSheet(layoutId, true);
+    }
+
     /*
      *底部滑出空白Dialog
      *layoutId layout的id
      */
-    public View dialogBottomSheet(int layoutId) {
-        builder = new BottomSheetDialog(context);
-
+    public View dialogBottomSheet(int layoutId, boolean isMatch) {
+        builder = new FDialogBottomSheet(context, isMatch);
         View view = LayoutInflater.from(context).inflate(layoutId, null);
         builder.setContentView(view);
         Window window = builder.getWindow();
@@ -625,16 +631,20 @@ public class DialogUtils {
         return view;
     }
 
+    public IconTextItem dialogBottomSheetListIconText(String title, String[] list) {
+        return dialogBottomSheetListIconText(title, true, list);
+    }
+
     /*
      *底部划出的Dialog列表
      *title 标题
      *list  列表
      */
-    public IconTextItem dialogBottomSheetListIconText(String title, String[] list) {
+    public IconTextItem dialogBottomSheetListIconText(String title, boolean isMatch, String[] list) {
 
         final IconTextItem it = new IconTextItem();
 
-        builder = new BottomSheetDialog(context);
+        builder = new FDialogBottomSheet(context, isMatch);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet_list, null);
         builder.setContentView(view);
         Window window = builder.getWindow();
@@ -650,7 +660,7 @@ public class DialogUtils {
         RecyclerView rv_new_file_list = view.findViewById(R.id.rv_list);
         tv_title = view.findViewById(R.id.tv_title);
         initTitle(title);
-        initDialogBackground(viewDialog);
+        initDialogBackground(view);
         rv_new_file_list.setLayoutManager(new LinearLayoutManager(context));
         IconTextRecyclerViewAdapter nFAdp = new IconTextRecyclerViewAdapter(data, false);
         rv_new_file_list.setAdapter(nFAdp);
@@ -665,13 +675,17 @@ public class DialogUtils {
         return it;
     }
 
+    public IconTextItem dialogBottomSheetListIconText(String title, List<ItemData> data, boolean isShowIcon) {
+        return dialogBottomSheetListIconText(title, data, isShowIcon, true);
+    }
+
     /*
      *底部划出的Dialog列表
      *title 标题
      *data item列表
      *isShowIcon 是否显示图标
      */
-    public IconTextItem dialogBottomSheetListIconText(String title, List<ItemData> data, boolean isShowIcon) {
+    public IconTextItem dialogBottomSheetListIconText(String title, List<ItemData> data, boolean isShowIcon, boolean isMatch) {
 
         final IconTextItem it = new IconTextItem();
 
@@ -687,7 +701,7 @@ public class DialogUtils {
         RecyclerView rv_new_file_list = view.findViewById(R.id.rv_list);
         tv_title = view.findViewById(R.id.tv_title);
         initTitle(title);
-        initDialogBackground(viewDialog);
+        initDialogBackground(view);
         rv_new_file_list.setLayoutManager(new LinearLayoutManager(context));
         IconTextRecyclerViewAdapter nFAdp = new IconTextRecyclerViewAdapter(data, isShowIcon);
         rv_new_file_list.setAdapter(nFAdp);
