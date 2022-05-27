@@ -45,7 +45,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.feihua' //groupId 随便取
                 artifactId = 'dialogutils'  //artifactId 随便取
-                version = '1.8.9.21'
+                version = '1.8.9.22'
             }
         }
     }
