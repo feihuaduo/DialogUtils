@@ -1,7 +1,7 @@
 package com.feihua.dialogutils.bean;
 
 public class ItemData {
-    public static final int ICON_NULL=-1;
+    public static final int ICON_NULL=0;
 
     private int icon;
     private String name;

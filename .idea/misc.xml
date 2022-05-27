@@ -9,6 +9,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android/project/DialogUtils/app/src/main/res/layout/library.xml" value="0.24947916666666667" />
+        <entry key="..\:/Android/project/DialogUtils/app/src/main/res/layout/main.xml" value="0.24895833333333334" />
+        <entry key="..\:/Android/project/DialogUtils/app/src/main/res/layout/main1.xml" value="0.24895833333333334" />
+        <entry key="..\:/Android/project/DialogUtils/app/src/main/res/layout/test_bottom_dialog.xml" value="0.264" />
         <entry key="..\:/Android/project/DialogUtils/app/src/main/res/layout/test_text_item.xml" value="0.24947916666666667" />
         <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/drawable-v21/click_background.xml" value="0.2574074074074074" />
         <entry key="..\:/Android/project/DialogUtils/dialogutils2/src/main/res/drawable-v21/click_transparent_background.xml" value="0.2611111111111111" />

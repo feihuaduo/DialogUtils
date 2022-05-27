@@ -59,6 +59,7 @@ public class TestTextAdapter extends RecyclerView.Adapter<TestTextAdapter.ViewHo
                     dialogUtils.dialoge(itemData.getName(), "测试这是提示的内容");
                     break;
                 case DialogRecord.TYPE_DIALOG_BOTTOM:
+//                    dialogUtils.dialogBottomSheet(R.layout.test_bottom_dialog);
                     dialogUtils.dialogBottomSheetListIconText("底部列表",new String[]{"1","2","3","4"});
                     break;
             }

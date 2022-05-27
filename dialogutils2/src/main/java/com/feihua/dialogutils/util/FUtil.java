@@ -9,7 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 /**
  * Create By feihua  On 2022/1/25
  */
-class FUtil {
+public class FUtil {
     //显示虚拟键盘
     public static void showKeyboard(View v) {
         v.requestFocus();

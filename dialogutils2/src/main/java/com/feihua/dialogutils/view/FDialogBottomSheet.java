@@ -2,9 +2,11 @@ package com.feihua.dialogutils.view;
 
 
 import android.content.Context;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 
+import com.feihua.dialogutils.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -20,7 +22,7 @@ public class FDialogBottomSheet extends BottomSheetDialog {
     }
 
     public FDialogBottomSheet(@NonNull Context context, boolean isMatch) {
-        super(context);
+        super(context, R.style.bottomSheetDialogStyle);
         this.isMatch = isMatch;
     }
 
@@ -29,7 +31,7 @@ public class FDialogBottomSheet extends BottomSheetDialog {
         super.onStart();
         // for landscape mode
         if (isMatch) {
-            BottomSheetBehavior behavior = getBehavior();
+            BottomSheetBehavior<FrameLayout> behavior = getBehavior();
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
     }

@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -46,7 +47,6 @@ import com.feihua.dialogutils.base.listener.OnRadioListener;
 import com.feihua.dialogutils.bean.ItemData;
 import com.feihua.dialogutils.bean.UpdateLog;
 import com.feihua.dialogutils.view.FDialogBottomSheet;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -403,7 +403,7 @@ public class DialogUtils {
     }
 
     public View[] dialoge(String title, String hint) {
-       return dialoge(title, hint, "");
+        return dialoge(title, hint, "");
     }
 
     //EditText对话框
@@ -427,9 +427,6 @@ public class DialogUtils {
             FUtil.showKeyboard(et_edit);
             et_edit.setSelection(et_edit.getText().length());
         }, 100);
-        builder.setOnDismissListener(dialog -> {
-            FUtil.closeKeyboard(builder);
-        });
         return v;
     }
 
@@ -442,13 +439,7 @@ public class DialogUtils {
         Button bt_cancel = viewDialog.findViewById(R.id.bt_cancel);
         initTitle(title);
         initDialogBackground(viewDialog);
-        bt_cancel.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View p1) {
-                dis();
-            }
-        });
+        bt_cancel.setOnClickListener(p1 -> dis());
 
         tv_toast_message.setText(message);
         setCanceledOnTouchOutside(false);
@@ -622,6 +613,12 @@ public class DialogUtils {
     public View dialogBottomSheet(int layoutId, boolean isMatch) {
         builder = new FDialogBottomSheet(context, isMatch);
         View view = LayoutInflater.from(context).inflate(layoutId, null);
+        try {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            parent.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+        } catch (Exception e) {
+
+        }
         builder.setContentView(view);
         Window window = builder.getWindow();
         if (window != null)
@@ -689,7 +686,7 @@ public class DialogUtils {
 
         final IconTextItem it = new IconTextItem();
 
-        builder = new BottomSheetDialog(context);
+        builder = new FDialogBottomSheet(context, isMatch);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet_list, null);
         builder.setContentView(view);
         Window window = builder.getWindow();

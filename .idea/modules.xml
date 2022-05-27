@@ -4,7 +4,13 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DialogUtils.iml" filepath="$PROJECT_DIR$/DialogUtils.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DialogUtils.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DialogUtils.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DialogUtils.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DialogUtils.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DialogUtils.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DialogUtils.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DialogUtils.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DialogUtils.app.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dialogutils2/DialogUtils.dialogutils2.iml" filepath="$PROJECT_DIR$/.idea/modules/dialogutils2/DialogUtils.dialogutils2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dialogutils2/DialogUtils.dialogutils2.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/dialogutils2/DialogUtils.dialogutils2.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dialogutils2/DialogUtils.dialogutils2.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dialogutils2/DialogUtils.dialogutils2.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dialogutils2/DialogUtils.dialogutils2.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/dialogutils2/DialogUtils.dialogutils2.unitTest.iml" />
     </modules>
   </component>
 </project>

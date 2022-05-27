@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-	<style name="dialog" parent="android:style/Theme.Dialog">		
+	<style name="dialog" parent="android:style/Theme.Dialog">
 		<item name="android:windowBackground">@android:color/transparent</item>
 		<!--是否模糊-->
 		<item name="android:backgroundDimEnabled">true</item>	
@@ -34,6 +34,10 @@
 
 	<style name="progressBarStyle">
 
+	</style>
+
+	<style name="bottomSheetDialogStyle" parent="Theme.MaterialComponents.BottomSheetDialog">
+		<item name="bottomSheetStyle">@null</item>
 	</style>
 	
 </resources>
