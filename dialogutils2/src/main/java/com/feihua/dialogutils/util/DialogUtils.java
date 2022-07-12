@@ -46,6 +46,7 @@ import com.feihua.dialogutils.base.listener.OnCheckboxListener;
 import com.feihua.dialogutils.base.listener.OnRadioListener;
 import com.feihua.dialogutils.bean.ItemData;
 import com.feihua.dialogutils.bean.UpdateLog;
+import com.feihua.dialogutils.view.FDialog;
 import com.feihua.dialogutils.view.FDialogBottomSheet;
 
 import java.util.ArrayList;
@@ -135,7 +136,7 @@ public class DialogUtils {
 
     private void initDialog(Context context) {
         if (builder == null || builder.getClass() != Dialog.class) {
-            builder = new Dialog(context, R.style.dialog);
+            builder = new FDialog(context, R.style.dialog);
             //去除原dialog标题
             builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
