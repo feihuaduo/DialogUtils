@@ -7,7 +7,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 21
         versionCode 1
-        versionName "1.8.9.29"
+        versionName "1.8.9.30"
         testInstrumentationRunner "android.support.com.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -33,6 +33,6 @@ android {
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':dialogutils2')
+    implementation project(path: ':dialogutils')
 
 }

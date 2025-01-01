@@ -28,6 +28,13 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
+//    publishing {
+//        singleVariant("release") {
+//            withSourcesJar()
+//            withJavadocJar()
+//        }
+//    }
+
     namespace 'com.feihua.dialogutils'
 }
 
@@ -50,10 +57,12 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.feihua'
             artifactId = 'dialogutils'
-            version = '1.8.9.29'
+            version = '1.8.9.30'
 
             afterEvaluate {
                 from components.findByName("release")
+                // 明确添加 AAR 文件作为工件
+                artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
             }
 
             pom.withXml {
@@ -70,3 +79,4 @@ publishing {
         }
     }
 }
+
