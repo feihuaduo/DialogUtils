@@ -57,7 +57,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.feihua'
             artifactId = 'dialogutils'
-            version = '1.8.9.30'
+            version = '1.8.9.31'
 
             afterEvaluate {
                 from components.findByName("release")
@@ -78,5 +78,12 @@ publishing {
             }
         }
     }
+    repositories {
+        mavenLocal()
+    }
 }
 
+// 显式声明依赖关系
+tasks.named('publishReleasePublicationToMavenLocal').configure {
+    dependsOn tasks.named('bundleReleaseAar')
+}
