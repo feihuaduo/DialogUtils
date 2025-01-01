@@ -22,6 +22,6 @@ Step 2. Add the dependency
 dependencies {
 
     //依赖
-    implementation 'com.github.feihuaduo:DialogUtils:1.8.9.24'
+    implementation 'com.github.feihuaduo:DialogUtils:1.8.9.26'
 }
 ```

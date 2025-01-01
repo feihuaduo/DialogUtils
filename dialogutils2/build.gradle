@@ -23,6 +23,11 @@ android {
         checkReleaseBuilds false
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
     namespace 'com.feihua.dialogutils'
 }
 
@@ -45,7 +50,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.feihua'
             artifactId = 'dialogutils'
-            version = '1.8.9.24'
+            version = '1.8.9.26'
 
             afterEvaluate {
                 from components.findByName("release")
