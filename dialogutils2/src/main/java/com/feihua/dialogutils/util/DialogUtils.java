@@ -135,7 +135,7 @@ public class DialogUtils {
 
 
     private void initDialog(Context context) {
-        if (builder == null || builder.getClass() != Dialog.class) {
+        if (builder == null || builder.getClass() != FDialog.class) {
             builder = new FDialog(context, R.style.dialog);
             //去除原dialog标题
             builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
