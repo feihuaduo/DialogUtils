@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 37 // 更新为最新版本以确保兼容性
+    compileSdkVersion 36 // AGP 8.13.2 官测最高 36.1；37 的平台包在 JitPack 上 hash 不匹配（android-37.0 ≠ android-37）
 
     defaultConfig {
         minSdkVersion 23 // material 1.14.0 要求 minSdk >= 23
@@ -57,7 +57,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.feihua'
             artifactId = 'dialogutils'
-            version = '1.8.9.32'
+            version = '1.8.9.33'
 
             afterEvaluate {
                 from components.findByName("release")
