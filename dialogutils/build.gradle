@@ -4,10 +4,10 @@ plugins {
 }
 
 android {
-    compileSdkVersion 34 // 更新为最新版本以确保兼容性
+    compileSdkVersion 37 // 更新为最新版本以确保兼容性
 
     defaultConfig {
-        minSdkVersion 21 // 提高 minSdkVersion 以避免潜在的兼容性问题
+        minSdkVersion 23 // material 1.14.0 要求 minSdk >= 23
         targetSdkVersion 21 // 更新为最新版本以确保兼容性
     }
 
@@ -46,8 +46,8 @@ java {
 
 
 dependencies {
-    api 'androidx.appcompat:appcompat:1.7.0'
-    api 'com.google.android.material:material:1.12.0'
+    api 'androidx.appcompat:appcompat:1.8.0'
+    api 'com.google.android.material:material:1.14.0'
     api "androidx.cardview:cardview:1.0.0"
 }
 
@@ -57,7 +57,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.feihua'
             artifactId = 'dialogutils'
-            version = '1.8.9.31'
+            version = '1.8.9.32'
 
             afterEvaluate {
                 from components.findByName("release")

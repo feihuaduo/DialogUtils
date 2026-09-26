@@ -32,6 +32,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.StyleRes;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -418,7 +419,10 @@ public class DialogUtils {
         initTitle(title);
         initDialogBackground(viewDialog);
         et_edit.setHint(hint);
-        et_edit.setHint(message);
+        // message 为预填内容（如编辑签名时传入已有签名），不能像旧实现那样 setHint 覆盖掉 hint
+        if (message != null && !message.isEmpty()) {
+            et_edit.setText(message);
+        }
         bt_ok.setOnClickListener(p1 -> dis());
 
         v[0] = et_edit;
@@ -604,7 +608,54 @@ public class DialogUtils {
     }
 
     public View dialogBottomSheet(int layoutId) {
-        return dialogBottomSheet(layoutId, true);
+        return dialogBottomSheet(layoutId, true, 0);
+    }
+
+    /**
+     * 内容根避让自动接线（edge-to-edge）：setContentView 之后、show 之前调用。
+     * 目标优先取 ll_background（库布局 dialog_bottom_sheet_list 的根；
+     * setContentView 的是包装容器时从其子树查找），
+     * 没有时回退取"带圆角背景的内容根"（根自身有背景，或第一个带背景的子 view，
+     * 如 menu_dialog 根布局、card_share_dialog 的 ll_layout），
+     * 由 FDialogBottomSheet.fitContentInsets 统一避让系统栏，调用方零成本开箱即用
+     */
+    private void applyBottomSheetContentInsets(FDialogBottomSheet dialog, View contentView) {
+        if (contentView == null) {
+            return;
+        }
+        View target;
+        if (contentView.getId() == R.id.ll_background) {
+            target = contentView;
+        } else {
+            target = contentView.findViewById(R.id.ll_background);
+        }
+        if (target == null && contentView.getBackground() != null) {
+            target = contentView;
+        }
+        if (target == null) {
+            target = findFirstBackgroundDescendant(contentView);
+        }
+        if (target != null) {
+            dialog.fitContentInsets(target);
+        }
+    }
+
+    private View findFirstBackgroundDescendant(View view) {
+        if (!(view instanceof ViewGroup)) {
+            return null;
+        }
+        ViewGroup group = (ViewGroup) view;
+        for (int i = 0; i < group.getChildCount(); i++) {
+            View child = group.getChildAt(i);
+            if (child.getBackground() != null) {
+                return child;
+            }
+            View hit = findFirstBackgroundDescendant(child);
+            if (hit != null) {
+                return hit;
+            }
+        }
+        return null;
     }
 
     /*
@@ -612,7 +663,16 @@ public class DialogUtils {
      *layoutId layout的id
      */
     public View dialogBottomSheet(int layoutId, boolean isMatch) {
-        builder = new FDialogBottomSheet(context, isMatch);
+        return dialogBottomSheet(layoutId, isMatch, 0);
+    }
+
+    /*
+     *底部滑出空白Dialog
+     *layoutId layout的id
+     *themeResId 弹窗主题（BottomSheetDialog 的主题只能在构造时传入），<= 0 时用库默认主题
+     */
+    public View dialogBottomSheet(int layoutId, boolean isMatch, @StyleRes int themeResId) {
+        builder = new FDialogBottomSheet(context, isMatch, themeResId);
         View view = LayoutInflater.from(context).inflate(layoutId, null);
         try {
             ViewGroup parent = (ViewGroup) view.getParent();
@@ -621,6 +681,7 @@ public class DialogUtils {
 
         }
         builder.setContentView(view);
+        applyBottomSheetContentInsets((FDialogBottomSheet) builder, view);
         Window window = builder.getWindow();
         if (window != null)
             window.findViewById(R.id.design_bottom_sheet)
@@ -630,7 +691,7 @@ public class DialogUtils {
     }
 
     public IconTextItem dialogBottomSheetListIconText(String title, String[] list) {
-        return dialogBottomSheetListIconText(title, true, list);
+        return dialogBottomSheetListIconText(title, true, list, 0);
     }
 
     /*
@@ -639,12 +700,23 @@ public class DialogUtils {
      *list  列表
      */
     public IconTextItem dialogBottomSheetListIconText(String title, boolean isMatch, String[] list) {
+        return dialogBottomSheetListIconText(title, isMatch, list, 0);
+    }
+
+    /*
+     *底部划出的Dialog列表
+     *title 标题
+     *list  列表
+     *themeResId 弹窗主题（BottomSheetDialog 的主题只能在构造时传入），<= 0 时用库默认主题
+     */
+    public IconTextItem dialogBottomSheetListIconText(String title, boolean isMatch, String[] list, @StyleRes int themeResId) {
 
         final IconTextItem it = new IconTextItem();
 
-        builder = new FDialogBottomSheet(context, isMatch);
+        builder = new FDialogBottomSheet(context, isMatch, themeResId);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet_list, null);
         builder.setContentView(view);
+        applyBottomSheetContentInsets((FDialogBottomSheet) builder, view);
         Window window = builder.getWindow();
         if (window != null)
             window.findViewById(R.id.design_bottom_sheet)
@@ -674,7 +746,7 @@ public class DialogUtils {
     }
 
     public IconTextItem dialogBottomSheetListIconText(String title, List<ItemData> data, boolean isShowIcon) {
-        return dialogBottomSheetListIconText(title, data, isShowIcon, true);
+        return dialogBottomSheetListIconText(title, data, isShowIcon, true, 0);
     }
 
     /*
@@ -684,12 +756,24 @@ public class DialogUtils {
      *isShowIcon 是否显示图标
      */
     public IconTextItem dialogBottomSheetListIconText(String title, List<ItemData> data, boolean isShowIcon, boolean isMatch) {
+        return dialogBottomSheetListIconText(title, data, isShowIcon, isMatch, 0);
+    }
+
+    /*
+     *底部划出的Dialog列表
+     *title 标题
+     *data item列表
+     *isShowIcon 是否显示图标
+     *themeResId 弹窗主题（BottomSheetDialog 的主题只能在构造时传入），<= 0 时用库默认主题
+     */
+    public IconTextItem dialogBottomSheetListIconText(String title, List<ItemData> data, boolean isShowIcon, boolean isMatch, @StyleRes int themeResId) {
 
         final IconTextItem it = new IconTextItem();
 
-        builder = new FDialogBottomSheet(context, isMatch);
+        builder = new FDialogBottomSheet(context, isMatch, themeResId);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet_list, null);
         builder.setContentView(view);
+        applyBottomSheetContentInsets((FDialogBottomSheet) builder, view);
         Window window = builder.getWindow();
         if (window != null)
             window.findViewById(R.id.design_bottom_sheet)

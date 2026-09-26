@@ -12,9 +12,18 @@ import android.view.inputmethod.InputMethodManager;
 public class FUtil {
     //显示虚拟键盘
     public static void showKeyboard(View v) {
+        if (v == null) {
+            return;
+        }
         v.requestFocus();
-        InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        InputMethodManager imm = (InputMethodManager) v.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm == null) {
+            return;
+        }
+        // 不能用 toggleSoftInput：它是切换键盘状态，键盘已弹出时（如从其它输入框打开弹窗）反而会收起。
+        // 这里只负责立即弹出，等待时机（如弹窗显示后再弹）由调用方自行延时，与宿主 OYUtils.showKeyboard 一致
+        imm.showSoftInput(v, 0);
     }
 
     public static void closeKeyboard(Context context) {

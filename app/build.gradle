@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 37 // 与 dialogutils 一致；material 1.14.0 链路（core-ktx 1.16.0）要求 compileSdk >= 35
     defaultConfig {
         applicationId "com.test.feihua.dialogutils"
-        minSdkVersion 21
-        targetSdkVersion 21
+        minSdkVersion 23 // material 1.14.0 要求 minSdk >= 23
+        targetSdkVersion 35 // 与宿主一致（宿主 targetSdk=35），edge-to-edge 行为对齐
         versionCode 1
-        versionName "1.8.9.31"
+        versionName "1.8.9.32"
         testInstrumentationRunner "android.support.com.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

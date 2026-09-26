@@ -9,12 +9,17 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.test.feihua.dialogutils.MainActivity"
+            android:exported="true"
             android:label="@string/lib_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" />
 
     </application>
 </manifest>
