@@ -47,6 +47,10 @@
 		     setDecorFitsSystemWindows(false) 对它无效。M3 主题链显式设了 false，
 		     这里必须同样声明才能让窗口延伸到系统栏下方 -->
 		<item name="android:windowIsFloating">false</item>
+		<!-- 覆盖 appcompat Dialog 链继承的 abc_dialog_material_background（inset+圆角+半透明色）。
+		     floating=false 后窗口全屏，该背景会在内容上方画出"中间亮、四周暗"的色带；
+		     置为透明后顶部区域呈纯一色 dim -->
+		<item name="android:windowBackground">@android:color/transparent</item>
 		<item name="enableEdgeToEdge">true</item>
 		<item name="android:navigationBarColor">@android:color/transparent</item>
 		<item name="bottomSheetStyle">@style/Widget.DialogUtils.BottomSheet.Modal</item>
@@ -67,6 +71,10 @@
 		<item name="paddingBottomSystemWindowInsets">false</item>
 		<item name="paddingLeftSystemWindowInsets">false</item>
 		<item name="paddingRightSystemWindowInsets">false</item>
+		<!-- 父样式 elevation=16dp：透明背景下 RenderNode 仍按圆角 outline 投影，
+		     sheet 拉到顶部时阴影在状态栏区域的透明 padding 区显形为
+		     "中间亮、四周暗"的色带；白色背景由内容根提供，sheet 阴影无意义，置 0 -->
+		<item name="android:elevation">0dp</item>
 	</style>
 
 </resources>

@@ -57,7 +57,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.feihua'
             artifactId = 'dialogutils'
-            version = '1.8.9.33'
+            version = '1.8.9.34'
 
             afterEvaluate {
                 from components.findByName("release")
